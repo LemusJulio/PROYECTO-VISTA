@@ -19,108 +19,6 @@ body.dark-mode {
   background: linear-gradient(300deg, #1f2f56 0%, #122d44 60%, #7b94b5 100%);
 }
 
-#slider {
-  position: relative;
-  background: linear-gradient(300deg, #5fb0db 0%, #17b598 60%, #86e9a4 100%);
-  min-height: 100vh;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
-.bolaMov1, .bolaMov2, .bolaMov3, .bolaMov4, .bolaMov5 {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: -1;
-}
-
-.bolaMov1 {
-  background-color: #86e9a4;
-  width: 480px;
-  height: 350px;
-  left: -10px;
-  bottom: 40px;
-  animation: rotar 8s infinite ease-in-out;
-  transform-origin: 50% -100%;
-}
-
-.bolaMov2 {
-  background-color: #86e9a4;
-  opacity: 60%;
-  width: 300px;
-  height: 320px;
-  top: 130px;
-  right: 20%;
-  animation: gradient 6s infinite;
-}
-
-.bolaMov3 {
-  background-color: #17b598;
-  width: 400px;
-  height: 320px;
-  top: 50%;
-  left: 10%;
-  animation: rotar 12s infinite ease-in-out;
-  transform-origin: -50% 100%;
-}
-
-.bolaMov4 {
-  background-color: #3191c6;
-  opacity: 90%;
-  width: 360px;
-  height: 600px;
-  bottom: -30%;
-  right: -30%;
-  animation: gradient 7s infinite;
-}
-
-.bolaMov5 {
-  background-color: #86e9a4;
-  opacity: 70%;
-  width: 200px;
-  height: 90px;
-  top: 55%;
-  left: 55%;
-  animation: rotar 5s infinite;
-  transform-origin: -100% -120%;
-}
-
-@keyframes rotar {
-  0% {
-    transform: rotate(0deg);
-    opacity: 0.5;
-  }
-  50% {
-    transform: rotate(50deg) scale(0.5);
-    opacity: 0.9;
-  }
-  100% {
-    transform: rotate(0deg);
-    opacity: 0.5;
-  }
-}
-
-@keyframes gradient {
-  60% {
-    transform: scale(1.5) translate(-70%, -20%);
-  }
-}
-
-header.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 5px;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  background: transparent;
-  box-shadow: none;
-  height: 40px;
-}
-
 .menu-image {
   color: var(--color-texto2);
   padding: 0.5rem 1rem;
@@ -360,10 +258,6 @@ footer.controls {
       padding: 0.45rem 0.9rem;
   }
 
-  header.navbar {
-      height: 38px;
-  }
-
   footer.controls {
       padding: 4px 0;
   }
@@ -441,10 +335,6 @@ footer.controls {
   .menu-image {
       font-size: 1rem;
       padding: 0.4rem 0.8rem;
-  }
-
-  header.navbar {
-      height: 35px;
   }
 
   footer.controls {
@@ -539,9 +429,6 @@ footer.controls {
       padding: 0.3rem 0.6rem;
   }
 
-  header.navbar {
-      height: 30px;
-  }
 
   footer.controls {
       padding: 10px 0; /* Aumentado de 2px */

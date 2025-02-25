@@ -5,26 +5,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const MIN_SCALE = 0.5;
 
     try {
-        // 1. Configuración inicial y constantes
+        // 1. Configuración inicial
         const element = document.getElementById('image-container');
         if (!element) throw new Error('Container element not found');
 
-        const isMobile = window.innerWidth <= MOBILE_BREAKPOINT || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+        const isMobile = window.innerWidth <= MOBILE_BREAKPOINT || ('ontouchstart' in window);
 
         // 2. Configuración de Panzoom
-        const startScale = isMobile ? 1 : 3; // Dinámico según el tamaño de la pantalla
+        const startScale = isMobile ? 1 : 3;
 
         const panzoomConfig = {
             maxScale: MAX_SCALE,
             minScale: MIN_SCALE,
             contain: 'outside',
-            startScale: startScale, // Zoom inicial dinámico
+            startScale: startScale,
             step: ZOOM_STEP,
-            animate: true,
+            animate: false, // Desactivar animaciones por defecto
             duration: 200,
             easing: 'ease-out',
             acceleration: true,
-            transformOrigin: 'center center', // Centra la imagen al hacer zoom
+            transformOrigin: 'center center',
             touchAction: 'none',
             excludeClass: 'control-btn'
         };
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const panzoom = Panzoom(element, panzoomConfig);
 
         // Ajustar la posición inicial para mostrar la parte superior de la imagen
-        panzoom.pan(0, element.offsetHeight * (startScale / 2)); // Ajuste dinámico basado en startScale
+        panzoom.pan(0, element.offsetHeight * (startScale / 2));
 
         // 3. Accesibilidad
         const setupAccessibility = () => {
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('resetZoom').addEventListener('click', () => {
             panzoom.reset();
-            panzoom.pan(0, element.offsetHeight * (startScale / 2)); // Ajustar posición después del reset
+            panzoom.pan(0, element.offsetHeight * (startScale / 2));
         });
 
         // 6. Eventos de teclado y rueda del ratón (solo para desktop)
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         break;
                     case '0':
                         panzoom.reset();
-                        panzoom.pan(0, element.offsetHeight * (startScale / 2)); // Ajustar posición después del reset
+                        panzoom.pan(0, element.offsetHeight * (startScale / 2));
                         break;
                 }
             });
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const handleResize = debounce(() => {
             const newIsMobile = window.innerWidth <= MOBILE_BREAKPOINT;
             if (newIsMobile !== isMobile) {
-                location.reload(); // Recargar la página si cambia el tamaño de la pantalla
+                location.reload();
             }
         }, 250);
 
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 10. Observador de redimensionamiento
         const resizeObserver = new ResizeObserver(debounce(() => {
             panzoom.reset();
-            panzoom.pan(0, element.offsetHeight * (startScale / 2)); // Ajustar posición después del reset
+            panzoom.pan(0, element.offsetHeight * (startScale / 2));
         }, 250));
         resizeObserver.observe(element);
 
