@@ -222,10 +222,10 @@ main {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  cursor: grab;
+  align-items: flex-start; /* Alinea la imagen en la parte superior */
   overflow: auto;
   position: relative;
+  padding: 20px; /* Espacio alrededor de la imagen */
 }
 
 .image-container:active {
@@ -233,8 +233,8 @@ main {
 }
 
 .image-container img {
-  max-width: 95%;
-  max-height: 95%;
+  max-width: 100%;  /* Ajusta según sea necesario */
+  max-height: 100%;
   object-fit: contain;
   display: block;
   margin: 0 auto;

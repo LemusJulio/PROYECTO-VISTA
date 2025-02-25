@@ -5,28 +5,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const MIN_SCALE = 0.5;
 
     try {
+        // 1. Configuración inicial y constantes
         const element = document.getElementById('image-container');
         if (!element) throw new Error('Container element not found');
 
         const isMobile = window.innerWidth <= MOBILE_BREAKPOINT || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 
+        // 2. Configuración de Panzoom
+        const startScale = isMobile ? 1 : 3; // Dinámico según el tamaño de la pantalla
+
         const panzoomConfig = {
             maxScale: MAX_SCALE,
             minScale: MIN_SCALE,
             contain: 'outside',
-            startScale: 1,
+            startScale: startScale, // Zoom inicial dinámico
             step: ZOOM_STEP,
             animate: true,
             duration: 200,
             easing: 'ease-out',
             acceleration: true,
-            transformOrigin: 'center center',
+            transformOrigin: 'center center', // Centra la imagen al hacer zoom
             touchAction: 'none',
             excludeClass: 'control-btn'
         };
 
         const panzoom = Panzoom(element, panzoomConfig);
 
+        // Ajustar la posición inicial para mostrar la parte superior de la imagen
+        panzoom.pan(0, element.offsetHeight * (startScale / 2)); // Ajuste dinámico basado en startScale
+
+        // 3. Accesibilidad
         const setupAccessibility = () => {
             const controls = document.querySelectorAll('.control-btn');
             controls.forEach(control => {
@@ -44,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setupAccessibility();
 
+        // 4. Eventos de ratón y cursor
         element.style.cursor = 'grab';
         element.addEventListener('mousedown', () => {
             element.style.cursor = 'grabbing';
@@ -52,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             element.style.cursor = 'grab';
         });
 
+        // 5. Eventos de zoom y reset
         document.getElementById('zoomIn').addEventListener('click', () => {
             panzoom.zoomIn();
         });
@@ -62,8 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('resetZoom').addEventListener('click', () => {
             panzoom.reset();
+            panzoom.pan(0, element.offsetHeight * (startScale / 2)); // Ajustar posición después del reset
         });
 
+        // 6. Eventos de teclado y rueda del ratón (solo para desktop)
         if (!isMobile) {
             element.addEventListener('wheel', (event) => {
                 if (event.ctrlKey) {
@@ -83,13 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         break;
                     case '0':
                         panzoom.reset();
+                        panzoom.pan(0, element.offsetHeight * (startScale / 2)); // Ajustar posición después del reset
                         break;
                 }
             });
-
-
         }
 
+        // 7. Modo oscuro
         const moonImage = document.getElementById('toggleImage');
         const body = document.body;
         let isDarkMode = localStorage.getItem('darkMode') === 'true';
@@ -104,15 +116,17 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('darkMode', isDarkMode);
         });
 
+        // 8. Manejo de redimensionamiento
         const handleResize = debounce(() => {
             const newIsMobile = window.innerWidth <= MOBILE_BREAKPOINT;
             if (newIsMobile !== isMobile) {
-                location.reload();
+                location.reload(); // Recargar la página si cambia el tamaño de la pantalla
             }
         }, 250);
 
         window.addEventListener('resize', handleResize);
 
+        // 9. Gestos táctiles
         let lastTouchDistance = 0;
         element.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
@@ -120,11 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, { passive: true });
 
+        // 10. Observador de redimensionamiento
         const resizeObserver = new ResizeObserver(debounce(() => {
             panzoom.reset();
+            panzoom.pan(0, element.offsetHeight * (startScale / 2)); // Ajustar posición después del reset
         }, 250));
         resizeObserver.observe(element);
 
+        // 11. Información de ayuda
         const infoButton = document.getElementById('infoButton');
         if (infoButton) {
             infoButton.addEventListener('click', () => {
@@ -160,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // 12. Manejo del botón de retroceso
         window.onBackPressed = function() {
             try {
                 if (typeof Android !== 'undefined') {
@@ -191,11 +209,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // 13. Limpieza
         return () => {
             resizeObserver.disconnect();
             panzoom.destroy();
         };
     } catch (error) {
+        // 14. Manejo de errores
         console.error('Error initializing viewer:', error);
         Swal.fire({
             title: 'Error',
@@ -205,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// 15. Funciones auxiliares
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
