@@ -144,7 +144,7 @@ main {
   color: var(--color-texto2);
   font-size: 2.5rem;
   font-weight: bold;
-  background-image: url(imagenes/logo.jpg);
+  background-image: url(logo.jpg);
   background-size: cover;
   background-position: center;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
