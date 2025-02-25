@@ -4,7 +4,7 @@ import { toggleDarkMode } from './darkMode.js';
 const APP_CONFIG = {
   nodeSettings: {
     baseRadius: {
-      desktop: 300,
+      desktop: 400,
       mobile: 0 // Usaremos disposición vertical
     },
     minRadius: 100,
@@ -49,16 +49,16 @@ function createChildNodes() {
   startMainNodeAnimation();
 
   const elementos = [
-    { texto: "Producción", icono: "https://cdn-icons-png.freepik.com/512/2973/2973740.png", link: "produccion.html"},
-    { texto: "Operación y Logística", icono: "https://cdn-icons-png.freepik.com/512/18191/18191216.png", link: "operacion_logistica.html"},
-    { texto: "Dirección General", icono: "https://cdn-icons-png.freepik.com/512/10908/10908520.png", link: "direccion_general.html"},
-    { texto: "Tecnología", icono: "https://cdn-icons-png.freepik.com/512/778/778631.png", link: "tecnologia.html"},
-    { texto: "Sistema de Gestión", icono: "https://cdn-icons-png.freepik.com/512/16517/16517493.png", link: "gestion_calidad.html"},
-    { texto: "Seguridad", icono: "https://cdn-icons-png.freepik.com/512/1022/1022382.png", link: "seguridad.html"},
-    { texto: "Administración", icono: "https://cdn-icons-png.freepik.com/512/13339/13339430.png", link: "administracion.html"},
-    { texto: "TIC's", icono: "https://cdn-icons-png.freepik.com/512/780/780477.png", link: "tics.html"},
-    { texto: "Almacén General", icono: "https://cdn-icons-png.freepik.com/512/18771/18771476.png", link: "almacen.html"},
-    { texto: "Compras", icono: "https://cdn-icons-png.freepik.com/512/7438/7438697.png", link: "compras.html"}
+    { texto: "Producción", icono: "imagenes/produc.png", link: "produccion.html"},
+    { texto: "Operación y Logística", icono: "imagenes/oper.png", link: "operacion_logistica.html"},
+    { texto: "Dirección General", icono: "imagenes/direc.png", link: "direccion_general.html"},
+    { texto: "Tecnología", icono: "imagenes/tecno.png", link: "tecnologia.html"},
+    { texto: "Sistema de Gestión", icono: "imagenes/calid.png", link: "gestion_calidad.html"},
+    { texto: "Seguridad", icono: "imagenes/segu.png", link: "seguridad.html"},
+    { texto: "Administración", icono: "imagenes/admin.png", link: "administracion.html"},
+    { texto: "TIC's", icono: "imagenes/tics.png", link: "tics.html"},
+    { texto: "Almacén General", icono: "imagenes/alma.png", link: "almacen.html"},
+    { texto: "Compras", icono: "imagenes/comp.png", link: "compras.html"}
   ];
 
   elementos.forEach((elem, index) => {
