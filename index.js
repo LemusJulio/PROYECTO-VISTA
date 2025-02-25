@@ -49,16 +49,16 @@ function createChildNodes() {
   startMainNodeAnimation();
 
   const elementos = [
-    { texto: "Producción", icono: "imagenes/produc.png", link: "produccion.html"},
-    { texto: "Operación y Logística", icono: "imagenes/oper.png", link: "operacion_logistica.html"},
-    { texto: "Dirección General", icono: "imagenes/direc.png", link: "direccion_general.html"},
-    { texto: "Tecnología", icono: "imagenes/tecno.png", link: "tecnologia.html"},
-    { texto: "Sistema de Gestión", icono: "imagenes/calid.png", link: "gestion_calidad.html"},
-    { texto: "Seguridad", icono: "imagenes/segu.png", link: "seguridad.html"},
-    { texto: "Administración", icono: "imagenes/admin.png", link: "administracion.html"},
-    { texto: "TIC's", icono: "imagenes/tics.png", link: "tics.html"},
-    { texto: "Almacén General", icono: "imagenes/alma.png", link: "almacen.html"},
-    { texto: "Compras", icono: "imagenes/comp.png", link: "compras.html"}
+    { texto: "Producción", icono: "produc.png", link: "produccion.html"},
+    { texto: "Operación y Logística", icono: "oper.png", link: "operacion_logistica.html"},
+    { texto: "Dirección General", icono: "direc.png", link: "direccion_general.html"},
+    { texto: "Tecnología", icono: "tecno.png", link: "tecnologia.html"},
+    { texto: "Sistema de Gestión", icono: "calid.png", link: "gestion_calidad.html"},
+    { texto: "Seguridad", icono: "segu.png", link: "seguridad.html"},
+    { texto: "Administración", icono: "admin.png", link: "administracion.html"},
+    { texto: "TIC's", icono: "tics.png", link: "tics.html"},
+    { texto: "Almacén General", icono: "alma.png", link: "almacen.html"},
+    { texto: "Compras", icono: "comp.png", link: "compras.html"}
   ];
 
   elementos.forEach((elem, index) => {
