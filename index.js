@@ -1,4 +1,4 @@
-import { toggleDarkMode } from './darkMode.js';
+import { toggleDarkMode, loadDarkModePreference } from './darkMode.js';
 
 // Configuración global
 const APP_CONFIG = {
@@ -26,11 +26,13 @@ const DOM = {
   container: document.querySelector(".mapa-container"),
   mainNode: document.getElementById("nodo-principal"),
   nodes: () => document.querySelectorAll(".nodo-hijo"),
-  isMobile: () => window.innerWidth <= 768
+  isMobile: () => window.innerWidth <= 768,
+  pageTransition: document.getElementById("pageTransition")
 };
 
 // Funcionalidad principal
 function initApp() {
+  loadDarkModePreference(); // Cargar preferencia de modo oscuro
   setupEventListeners();
 }
 
@@ -49,16 +51,16 @@ function createChildNodes() {
   startMainNodeAnimation();
 
   const elementos = [
-    { texto: "Producción", icono: "produc.png", link: "produccion.html"},
-    { texto: "Operación y Logística", icono: "oper.png", link: "operacion_logistica.html"},
-    { texto: "Dirección General", icono: "direc.png", link: "direccion_general.html"},
-    { texto: "Tecnología", icono: "tecno.png", link: "tecnologia.html"},
-    { texto: "Sistema de Gestión", icono: "calid.png", link: "gestion_calidad.html"},
-    { texto: "Seguridad", icono: "segu.png", link: "seguridad.html"},
-    { texto: "Administración", icono: "admin.png", link: "administracion.html"},
-    { texto: "TIC's", icono: "tics.png", link: "tics.html"},
-    { texto: "Almacén General", icono: "alma.png", link: "almacen.html"},
-    { texto: "Compras", icono: "comp.png", link: "compras.html"}
+    { texto: "Producción", icono: "https://cdn-icons-png.freepik.com/512/2973/2973740.png", link: "produccion.html"},
+    { texto: "Operación y Logística", icono: "https://cdn-icons-png.freepik.com/512/18191/18191216.png", link: "operacion_logistica.html"},
+    { texto: "Dirección General", icono: "https://cdn-icons-png.freepik.com/512/10908/10908520.png", link: "direccion_general.html"},
+    { texto: "Tecnología", icono: "https://cdn-icons-png.freepik.com/512/778/778631.png", link: "tecnologia.html"},
+    { texto: "Sistema de Gestión", icono: "https://cdn-icons-png.freepik.com/512/16517/16517493.png", link: "gestion_calidad.html"},
+    { texto: "Seguridad", icono: "https://cdn-icons-png.freepik.com/512/1022/1022382.png", link: "seguridad.html"},
+    { texto: "Administración", icono: "https://cdn-icons-png.freepik.com/512/13339/13339430.png", link: "administracion.html"},
+    { texto: "TIC's", icono: "https://cdn-icons-png.freepik.com/512/780/780477.png", link: "tics.html"},
+    { texto: "Almacén General", icono: "https://cdn-icons-png.freepik.com/512/18771/18771476.png", link: "almacen.html"},
+    { texto: "Compras", icono: "https://cdn-icons-png.freepik.com/512/7438/7438697.png", link: "compras.html"}
   ];
 
   elementos.forEach((elem, index) => {
@@ -74,7 +76,13 @@ function createNodeElement(element, index) {
   node.classList.add("nodo", "nodo-hijo");
   node.innerHTML = `<img src="${element.icono}" alt="${element.texto}"><span>${element.texto}</span>`;
   node.style.backgroundColor = element.color;
-  node.addEventListener("click", () => window.location.href = element.link);
+  node.addEventListener("click", () => {
+    // Activar la transición de página antes de redirigir
+    DOM.pageTransition.classList.add("active");
+    setTimeout(() => {
+      window.location.href = element.link;
+    }, 300); // Ajusta el tiempo según la duración de la animación
+  });
   return node;
 }
 
@@ -109,26 +117,26 @@ function calculateRadius() {
 }
 
 function setupNodeAnimations(node, index, isRemoving = false) {
-    node.style.opacity = "1";
-    node.style.display = "flex";
-  
-    if (!DOM.isMobile()) {
-      // Animación para pantallas grandes (> 768px)
-      const delay = index * 0.1; // Retraso de 0.1s entre cada nodo
-      node.style.animation = `${APP_CONFIG.animations.enterDesktop} ${delay}s forwards`;
+  node.style.opacity = "1";
+  node.style.display = "flex";
+
+  if (!DOM.isMobile()) {
+    // Animación para pantallas grandes (> 768px)
+    const delay = index * 0.1; // Retraso de 0.1s entre cada nodo
+    node.style.animation = `${APP_CONFIG.animations.enterDesktop} ${delay}s forwards`;
+  } else {
+    // Animación para móviles
+    const delay = index * 0.2; // Retraso de 0.2s entre cada nodo
+
+    if (isRemoving) {
+      // Animación de salida (Slide Up + Bounce)
+      node.style.animation = `slideUpBounce 0.6s ease ${delay}s forwards`;
     } else {
-      // Animación para móviles
-      const delay = index * 0.2; // Retraso de 0.2s entre cada nodo
-  
-      if (isRemoving) {
-        // Animación de salida (Slide Up + Bounce)
-        node.style.animation = `slideUpBounce 0.6s ease ${delay}s forwards`;
-      } else {
-        // Animación de entrada (Slide Down + Bounce)
-        node.style.animation = `slideDownBounce 0.6s ease ${delay}s forwards`;
-      }
+      // Animación de entrada (Slide Down + Bounce)
+      node.style.animation = `slideDownBounce 0.6s ease ${delay}s forwards`;
     }
   }
+}
 
 // Eliminación de nodos hijos
 function removeChildNodes() {
@@ -157,7 +165,6 @@ function startMainNodeAnimation() {
     DOM.mainNode.style.animation = APP_CONFIG.animations.pulse;
   }, { once: true });
 }
-
 
 // Instrucciones
 function showInstructions() {

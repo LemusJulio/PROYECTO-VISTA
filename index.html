@@ -33,6 +33,9 @@
     </header>
     <main>
         <div class="mapa-container">
+            <!-- Indicador de carga -->
+            <div class="loading-indicator" id="loadingIndicator"></div>
+            
             <div class="nube" id="nodo-principal" role="button" aria-label="Nodo Principal" tabindex="0">
                 <svg viewBox="0 0 220 220">
                     <defs>
@@ -56,6 +59,12 @@
     <footer>
         <p>&copy; 2025. Marketing Interno. Todos los derechos reservados.</p>
     </footer>
+    
+    <!-- Elemento para transición de página -->
+    <div class="page-transition" id="pageTransition">
+        <div class="page-transition-circle"></div>
+    </div>
+    
     <!-- Scripts Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
