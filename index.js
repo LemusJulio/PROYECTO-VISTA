@@ -1,6 +1,45 @@
 import { toggleDarkMode, loadDarkModePreference } from './darkMode.js';
 
-// Configuración global
+// ==================================================
+// Código de las burbujas
+// ==================================================
+const bubblesContainer = document.querySelector('.bubbles');
+
+function createBubbles() {
+  const bubbleCount = 50; // Número de burbujas
+  const colors = [
+    "#28b463", "#d4ac0d", "#f06292", "#9fa8da", "#ef9a9a",
+    "#f57c00", "#aeb6bf", "#42a5f5", "#a1887f", "#4db6ac"
+  ]; // Colores de los nodos hijos
+
+  for (let i = 0; i < bubbleCount; i++) {
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+
+    // Asignar propiedades aleatorias a cada burbuja
+    const size = Math.random() * 40 + 20; // Tamaño entre 20px y 60px
+    const left = Math.random() * 100; // Posición horizontal aleatoria
+    const delay = Math.random() * 5; // Retraso de la animación
+    const duration = Math.random() * 10 + 5; // Duración de la animación entre 5s y 15s
+    const color = colors[Math.floor(Math.random() * colors.length)]; // Color aleatorio
+
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+    bubble.style.left = `${left}%`;
+    bubble.style.animationDelay = `${delay}s`;
+    bubble.style.animationDuration = `${duration}s`;
+    bubble.style.backgroundColor = color; // Asignar color
+
+    bubblesContainer.appendChild(bubble);
+  }
+}
+
+// Llamar a la función para crear las burbujas
+createBubbles();
+
+// ==================================================
+// Resto del código de la aplicación
+// ==================================================
 const APP_CONFIG = {
   nodeSettings: {
     baseRadius: {
@@ -32,6 +71,9 @@ const DOM = {
 
 // Funcionalidad principal
 function initApp() {
+  // Activar el modo oscuro por defecto
+  document.body.classList.add('dark-mode');
+  document.getElementById('toggleDarkMode').textContent = 'Modo Claro';
   loadDarkModePreference(); // Cargar preferencia de modo oscuro
   setupEventListeners();
 }
