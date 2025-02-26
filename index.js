@@ -168,6 +168,8 @@ function startMainNodeAnimation() {
 
 // Instrucciones
 function showInstructions() {
+  const isDarkMode = document.body.classList.contains('dark-mode');
+
   Swal.fire({
     title: '¿Cómo funciona?',
     html: `
@@ -175,15 +177,19 @@ function showInstructions() {
         <p>1. Presiona el círculo central con el logo de Diseño Visual para desplegar las áreas de la empresa.</p>
         <p>2. Cada área tiene sus procedimientos.</p>
         <p>3. Al oprimir el círculo del área de tu interés, te enviará a otro mapa, dónde encontrarás los procedimientos del área correspondiente.</p>
-        <p>4. Siempre en la parte superior de la pantalla tendrás un botón para hacer el fondo oscuro para tu cómodidad.</p>
+        <p>4. Siempre en la parte superior de la pantalla tendrás un botón para hacer el fondo oscuro para tu comodidad.</p>
       </div>
     `,
     icon: 'info',
     confirmButtonText: 'Entendido',
-    confirmButtonColor: '#33CC66',
+    confirmButtonColor: isDarkMode ? '#33CC66' : '#182349', // Color del botón según el modo
     customClass: {
-      popup: 'swal-wide'
-    }
+      popup: isDarkMode ? 'swal-dark' : 'swal-light', // Clase personalizada para el modo oscuro/claro
+      title: isDarkMode ? 'swal-title-dark' : 'swal-title-light', // Clase para el título
+      htmlContainer: isDarkMode ? 'swal-html-dark' : 'swal-html-light', // Clase para el contenido
+    },
+    background: isDarkMode ? '#17202a' : '#F5F7FB', // Fondo del SweetAlert
+    color: isDarkMode ? '#FFFFFF' : '#2D3436', // Color del texto
   });
 }
 

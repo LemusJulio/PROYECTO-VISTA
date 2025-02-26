@@ -241,7 +241,7 @@ main {
   max-height: var(--nodo-max-size);
   margin: var(--nodo-spacing);
   border-radius: 50%;
-  font-size: 2rem;
+  font-size: 1.5rem; /* Reducir el tamaño de la fuente */
   color: #000000;
   background-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.5);
@@ -276,10 +276,12 @@ main {
 }
 
 .nodo span {
-  font-size: 1.7rem;
-  max-width: 90%;
+  font-size: 1.2rem; /* Reducir el tamaño de la fuente */
+  max-width: 90%; /* Limitar el ancho del texto */
   text-align: center;
-  transition: color 0.3s ease;
+  white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
+  overflow: hidden; /* Ocultar el texto que se desborda */
+  text-overflow: ellipsis; /* Mostrar "..." si el texto es demasiado largo */
   margin-top: 0.5rem;
   font-weight: bold;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -778,6 +780,41 @@ footer p {
     padding: 0.4rem 0.8rem;
   }
 
+  /* Estilos para SweetAlert en modo oscuro */
+.swal-dark {
+  background-color: #17202a !important; /* Fondo oscuro */
+  color: #FFFFFF !important; /* Texto blanco */
+}
+
+.swal-title-dark {
+  color: #FFFFFF !important; /* Título en blanco */
+}
+
+.swal-html-dark {
+  color: #FFFFFF !important; /* Contenido en blanco */
+}
+
+/* Estilos para SweetAlert en modo claro */
+.swal-light {
+  background-color: #F5F7FB !important; /* Fondo claro */
+  color: #2D3436 !important; /* Texto oscuro */
+}
+
+.swal-title-light {
+  color: #2D3436 !important; /* Título en oscuro */
+}
+
+.swal-html-light {
+  color: #2D3436 !important; /* Contenido en oscuro */
+}
+
+.swal-dark {
+  border: 1px solid #566573 !important; /* Borde en modo oscuro */
+}
+
+.swal-light {
+  border: 1px solid #D3D3D3 !important; /* Borde en modo claro */
+}
   /* DESACTIVAR HOVER EN MÓVIL */
   .nodo:hover {
     transform: none !important;
