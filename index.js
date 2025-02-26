@@ -4,7 +4,7 @@ import { toggleDarkMode, loadDarkModePreference } from './darkMode.js';
 const APP_CONFIG = {
   nodeSettings: {
     baseRadius: {
-      desktop: 400,
+      desktop: 500, // Ajusta este valor para cambiar el radio en desktop
       mobile: 0 // Usaremos disposición vertical
     },
     minRadius: 100,
@@ -97,8 +97,11 @@ function setupNodePosition(node, index, totalElements) {
     // Disposición circular para desktop
     const radius = calculateRadius();
     const angle = (index / totalElements) * (2 * Math.PI);
-    node.style.setProperty('--x', `${radius * Math.cos(angle)}px`);
-    node.style.setProperty('--y', `${radius * Math.sin(angle)}px`);
+    const x = radius * Math.cos(angle);
+    const y = radius * Math.sin(angle);
+    
+    node.style.setProperty('--x', `${x}px`);
+    node.style.setProperty('--y', `${y}px`);
   }
 }
 
@@ -110,7 +113,7 @@ function calculateRadius() {
   return Math.max(
     APP_CONFIG.nodeSettings.minRadius,
     Math.min(
-      screenWidth > 768 ? APP_CONFIG.nodeSettings.baseRadius.desktop : APP_CONFIG.nodeSettings.baseRadius.mobile,
+      APP_CONFIG.nodeSettings.baseRadius.desktop, // Usamos el radio base configurado
       maxRadius
     )
   );
