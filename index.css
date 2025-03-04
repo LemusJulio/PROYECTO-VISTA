@@ -13,12 +13,6 @@
   --nodo-max-size: 350px; /* Aumentar el tamaño máximo */
   --nodo-spacing: 10rem;            /* Espaciado entre nodos */
   --footer-height: 1.7rem;         /* Altura del footer */
-  
-  /* Nuevas variables para mejoras */
-  --transition-speed: 0.3s;        /* Velocidad de transición estándar */
-  --tooltip-bg: rgba(0, 0, 0, 0.8); /* Fondo para tooltips */
-  --tooltip-text: #fff;            /* Color de texto para tooltips */
-  --focus-outline: 3px solid #4299e1; /* Contorno para elementos con foco */
 }
 
 /* ================================================== */
@@ -43,61 +37,39 @@ body {
   overflow: auto; /* Permitir scroll */
 }
 
+body.dark-mode {
+  --color-fondo: #17202a;    /* Fondo oscuro para header/footer */
+  --color-secundario: #33CC66; /* Color de botones en modo oscuro */
+  --color-texto: #FFFFFF;    /* Texto principal en modo oscuro */
+}
+
 body:not(.dark-mode) {
-  background: linear-gradient(135deg, #f0f2f5, #e0e5ec, #d5d9e0) fixed; /* Fondo claro */
+  background: linear-gradient(135deg,#839192,#839192,#839192) fixed; /* Fondo claro */
 }
 
 /* ================================================== */
-/* Contenedor de burbujas */
+/* Header y Footer en Modo Oscuro */
 /* ================================================== */
-.bubbles {
-  position: fixed; /* Fijar el contenedor de burbujas */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  z-index: -1; /* Colocar detrás del contenido */
+body.dark-mode header,
+body.dark-mode footer {
+  background-color: #17202a; /* Fondo oscuro para header/footer */
+  border-color: rgba(255, 255, 255, 0.1); /* Borde sutil */
 }
 
-.bubble {
-  position: absolute;
-  bottom: -100px; /* Iniciar fuera de la pantalla */
-  display: block;
-  width: 40px; /* Tamaño base de las burbujas */
-  height: 40px;
-  border-radius: 50%;
-  animation: float-up 10s ease-in infinite;
-  opacity: 0.8; /* Opacidad para que no sean demasiado intensas */
+body.dark-mode header nav p,
+body.dark-mode footer p {
+  color: #FFFFFF; /* Texto blanco */
 }
 
-@keyframes float-up {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-110vh);
-  }
+body.dark-mode header nav button,
+body.dark-mode .btn-instructions {
+  background-color: #33CC66; /* Color del botón en modo oscuro (verde) */
+  color: #FFFFFF; /* Texto blanco */
 }
 
-/* ================================================== */
-/* Accesibilidad */
-/* ================================================== */
-*:focus {
-  outline: var(--focus-outline);
-  outline-offset: 2px;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+body.dark-mode header nav button:hover,
+body.dark-mode .btn-instructions:hover {
+  background-color: #28a745; /* Verde más oscuro al pasar el mouse */
 }
 
 /* ================================================== */
@@ -196,29 +168,6 @@ main {
   opacity: 0;
   animation: fadeIn 0.8s ease-in forwards;
 }
-/* Indicador de carga */
-.loading-indicator {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: #fff;
-  animation: spin 1s ease-in-out infinite;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.loading-indicator.active {
-  opacity: 1;
-}
-
-@keyframes spin {
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
 
 /* ================================================== */
 /* Nodo Principal */
@@ -241,21 +190,12 @@ main {
   background-image: url(logo.jpg);
   background-size: cover;
   background-position: center;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   animation: pulse 2s infinite;
 }
 
-#nodo-principal:hover {
-  transform: scale(1.05) rotate(2deg);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-}
 
-#nodo-principal:focus {
-  outline: var(--focus-outline);
-  outline-offset: 4px;
-}
 
 /* ================================================== */
 /* Nodos Secundarios */
@@ -275,9 +215,6 @@ main {
   border-radius: 50%;
   font-size: clamp(1rem, 2.5vw, 1.5rem);
   color: #000000;
-  background-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
   opacity: 0;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -322,32 +259,6 @@ main {
   transform: rotate(10deg);
 }
 
-
-
-/* Tooltip para nodos */
-.nodo .tooltip {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--tooltip-bg);
-  color: var(--tooltip-text);
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  white-space: nowrap;
-  z-index: 100;
-  pointer-events: none;
-}
-
-.nodo:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-}
-
 /* Colores de los nodos */
 .nodo:nth-child(3)  { animation-delay: 0.11s; background-color: #28b463; }
 .nodo:nth-child(4)  { animation-delay: 0.16s; background-color: #d4ac0d; }
@@ -382,11 +293,6 @@ footer p {
 /* ================================================== */
 /* Animaciones */
 /* ================================================== */
-@keyframes fadeOutAndShrink {
-  0% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.5); }
-}
-
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -399,15 +305,29 @@ footer p {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
-  50% { transform: scale(1.03); box-shadow: 0 0 30px rgba(255, 255, 255, 0.3); }
-  100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
 }
 
-@keyframes glow {
-  0% { box-shadow: 0 0 0.9375rem rgba(255, 255, 255, 0.5); }
-  50% { box-shadow: 0 0 1.5625rem rgba(255, 255, 255, 0.8); }
-  100% { box-shadow: 0 0 0.9375rem rgba(255, 255, 255, 0.5); }
+@keyframes spinAndGlow {
+  0% {
+    transform: rotate(0deg) scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
 }
 
 @keyframes bounceOut {
@@ -430,122 +350,26 @@ footer p {
   }
 }
 
-@keyframes nodeExit {
-  0% {
+
+
+@keyframes fadeOut {
+  from {
     opacity: 1;
-    transform: scale(1) translate(var(--x), var(--y));
   }
-  40% {
-    opacity: 0.8;
-    transform: scale(0.9) translate(calc(var(--x) * 0.5), calc(var(--y) * 0.5));
-  }
-  100% {
+  to {
     opacity: 0;
-    transform: scale(0.3) translate(0, 0);
-    z-index: 1;
-  }
-}
-
-@keyframes spinAndGlow {
-  0% {
-    transform: rotate(0deg) scale(1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  }
-}
-
-@keyframes spinAndGlowReverse {
-  0% {
-    transform: rotate(0deg) scale(1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  }
-  100% {
-    transform: rotate(-360deg) scale(1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  }
-}
-
-@keyframes spiralExit {
-  0% {
-    opacity: 1;
-    transform: scale(1) translate(var(--x), var(--y));
-  }
-  30% {
-    opacity: 0.9;
-    transform: scale(0.95) translate(calc(var(--x) * 0.8), calc(var(--y) * 0.8)) rotate(90deg);
-  }
-  60% {
-    opacity: 0.7;
-    transform: scale(0.8) translate(calc(var(--x) * 0.5), calc(var(--y) * 0.5)) rotate(180deg);
-  }
-  85% {
-    opacity: 0.3;
-    transform: scale(0.4) translate(calc(var(--x) * 0.2), calc(var(--y) * 0.2)) rotate(300deg);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0) translate(0, 0) rotate(360deg);
-  }
-}
-
-@keyframes spinAndGlowInfinite {
-  0% {
-    transform: rotate(0deg) scale(1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  }
-  100% {
-    transform: rotate(-360deg) scale(1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
   }
 }
 
 @keyframes slideDownBounce {
-  0% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(10%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(-100%); }
+  60% { opacity: 1; transform: translateY(10%); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slideUpBounce {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  40% {
-    opacity: 1;
-    transform: translateY(-20%);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-}
-
-/* Nueva animación para transición de página */
-@keyframes pageTransition {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0;
-    transform: scale(1.2);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.5);
-  }
+@keyframes fadeOutDown {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-0px); }
 }
 
 /* ================================================== */
@@ -704,34 +528,10 @@ footer p {
     margin: 1rem 0; /* Ajustar el margen entre nodos */
     font-size: clamp(1rem, 4vw, 1.2rem); /* Aumentar el tamaño de la fuente */
     transform: translateY(-100%); /* Posición inicial para la animación */
-    animation: bounceOut 0.3s ease-in-out forwards;
   }
 
   .nodo span {
     font-size: clamp(2rem, 4vw, 1.2rem); /* Aumentar el tamaño de la fuente del texto */
-  }
-
-  .nodo.animated {
-    animation: slideDownBounce 0.6s ease forwards; /* Animación de entrada */
-  }
-
-  .nodo.exit {
-    animation: slideUpBounce 0.6s ease forwards; /* Animación de salida */
-  }
-
-  .nodo:nth-child(2)  { animation-delay: 0.11s; }
-  .nodo:nth-child(3)  { animation-delay: 0.16s; }
-  .nodo:nth-child(4)  { animation-delay: 0.21s; }
-  .nodo:nth-child(5)  { animation-delay: 0.26s; }
-  .nodo:nth-child(6)  { animation-delay: 0.31s; }
-  .nodo:nth-child(7)  { animation-delay: 0.36s; }
-  .nodo:nth-child(8)  { animation-delay: 0.41s; }
-  .nodo:nth-child(9)  { animation-delay: 0.46s; }
-  .nodo:nth-child(10) { animation-delay: 0.51s; }
-  .nodo:nth-child(11) { animation-delay: 0.56s; }
-  
-  .nodo:last-child {
-    margin-bottom: calc(var(--footer-height) + 1rem); /* Reducir el margen inferior */
   }
 
   .nodo img {
@@ -772,31 +572,6 @@ footer p {
     padding: 0; /* Eliminar el padding del párrafo */
   }
 
-
-
-  /* ANIMATION */
-  @keyframes fadeInUp {
-      from {
-          opacity: 0;
-          transform: translateY(20px);
-      }
-      to {
-          opacity: 1;
-          transform: translateY(0);
-      }
-  }
-
-  @keyframes fadeOutDown {
-      from {
-          opacity: 1;
-          transform: translateY(0);
-      }
-      to {
-          opacity: 0;
-          transform: translateY(-20px);
-      }
-  }
-
   /* SWEET ALERT */
   .swal-wide {
     width: 90%;
@@ -817,7 +592,7 @@ footer p {
     padding: 0.4rem 0.8rem;
   }
 
-  /* Estilos para SweetAlert en modo oscuro */
+/* Estilos para SweetAlert en modo oscuro */
 .swal-dark {
   background-color: #17202a !important; /* Fondo oscuro */
   color: #FFFFFF !important; /* Texto blanco */
@@ -883,34 +658,4 @@ footer p {
       margin: 0;
     }
   }
-}
-
-/* Estilos para la transición de página */
-.page-transition {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.page-transition.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.page-transition-circle {
-  width: 100px;
-  height: 100px;
-  background-color: white;
-  border-radius: 50%;
-  animation: pageTransition 1s ease-in-out forwards;
 }

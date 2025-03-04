@@ -1,63 +1,24 @@
 import { toggleDarkMode, loadDarkModePreference } from './darkMode.js';
 
 // ==================================================
-// Código de las burbujas
-// ==================================================
-const bubblesContainer = document.querySelector('.bubbles');
-
-function createBubbles() {
-  const bubbleCount = 50; // Número de burbujas
-  const colors = [
-    "#28b463", "#d4ac0d", "#f06292", "#9fa8da", "#ef9a9a",
-    "#f57c00", "#aeb6bf", "#42a5f5", "#a1887f", "#4db6ac"
-  ]; // Colores de los nodos hijos
-
-  for (let i = 0; i < bubbleCount; i++) {
-    const bubble = document.createElement('div');
-    bubble.classList.add('bubble');
-
-    // Asignar propiedades aleatorias a cada burbuja
-    const size = Math.random() * 40 + 20; // Tamaño entre 20px y 60px
-    const left = Math.random() * 100; // Posición horizontal aleatoria
-    const delay = Math.random() * 5; // Retraso de la animación
-    const duration = Math.random() * 10 + 5; // Duración de la animación entre 5s y 15s
-    const color = colors[Math.floor(Math.random() * colors.length)]; // Color aleatorio
-
-    bubble.style.width = `${size}px`;
-    bubble.style.height = `${size}px`;
-    bubble.style.left = `${left}%`;
-    bubble.style.animationDelay = `${delay}s`;
-    bubble.style.animationDuration = `${duration}s`;
-    bubble.style.backgroundColor = color; // Asignar color
-
-    bubblesContainer.appendChild(bubble);
-  }
-}
-
-// Llamar a la función para crear las burbujas
-createBubbles();
-
-// ==================================================
-// Resto del código de la aplicación
+// Configuración global
 // ==================================================
 const APP_CONFIG = {
   nodeSettings: {
     baseRadius: {
-      desktop: 500, // Ajusta este valor para cambiar el radio en desktop
+      desktop: 450, // Ajusta este valor para cambiar el radio en desktop
       mobile: 0 // Usaremos disposición vertical
     },
     minRadius: 100,
-    spacing: 120 // Espacio entre nodos en móvil
+    spacing: 130 // Espacio entre nodos en móvil
   },
   animations: {
     spin: "spinAndGlow 1s ease-in-out",
     pulse: "pulse 2s infinite",
     spinInfinite: "spinAndGlowInfinite 0.5s linear infinite",
-    exitDesktop: "spiralExit 1.45s ease-in-out forwards",
+    exitDesktop: "fadeOut 0.1s ease forwards", // Reemplazamos spiralExit con fadeOut
     exitMobile: "fadeOutDown 0.5s ease forwards",
-    enterDesktop: "bounceOut 0.3s ease-in-out forwards",
-    enterMobile: "fadeInUp 0.5s ease forwards"
-  }
+    enterDesktop: "bounceOut 0.3s ease-in-out forwards",  }
 };
 
 // Elementos de la aplicación
@@ -93,7 +54,7 @@ function createChildNodes() {
   startMainNodeAnimation();
 
   const elementos = [
-    { texto: "Producción", icono: "https://cdn-icons-png.freepik.com/512/2973/2973740.png", link: "produccion.html"},
+    { texto: "Producción", icono: "https://cdn-icons-png.freepik.com/512/2973/2973740.png", link: "infografia.html"},
     { texto: "Operación y Logística", icono: "https://cdn-icons-png.freepik.com/512/18191/18191216.png", link: "operacion_logistica.html"},
     { texto: "Dirección General", icono: "https://cdn-icons-png.freepik.com/512/10908/10908520.png", link: "direccion_general.html"},
     { texto: "Tecnología", icono: "https://cdn-icons-png.freepik.com/512/778/778631.png", link: "tecnologia.html"},
@@ -188,8 +149,9 @@ function removeChildNodes() {
   DOM.mainNode.style.animation = APP_CONFIG.animations.spinInfinite;
 
   DOM.nodes().forEach((node, index) => {
+    // Modificar esta parte
     const animation = DOM.isMobile() ? 
-      APP_CONFIG.animations.exitMobile : 
+      "none" : // Desactivar animación en móvil
       `${APP_CONFIG.animations.exitDesktop} ${index * 0.01}s`;
 
     node.style.animation = animation;
@@ -201,6 +163,11 @@ function removeChildNodes() {
         DOM.mainNode.style.animation = APP_CONFIG.animations.pulse;
       }
     }, { once: true });
+
+    // Forzar eliminación inmediata en móvil
+    if (DOM.isMobile()) {
+      node.remove();
+    }
   });
 }
 
