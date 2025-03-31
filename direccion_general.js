@@ -1,6 +1,5 @@
 import { toggleDarkMode, loadDarkModePreference } from './darkMode.js';
 
-
 // ==================================================
 // Configuración global
 // ==================================================
@@ -55,18 +54,17 @@ function createChildNodes() {
   startMainNodeAnimation();
 
   const elementos = [
-    { texto: "Producción",            icono: "https://cdn-icons-png.freepik.com/512/2973/2973740.png",   link: "produccion.html"},
-    { texto: "Operación y Logística", icono: "https://cdn-icons-png.freepik.com/512/18191/18191216.png", link: "operacion_logistica.html"},
-    { texto: "Dirección General",     icono: "https://cdn-icons-png.freepik.com/512/10908/10908520.png", link: "direccion_general.html"},
-    { texto: "Tecnología",            icono: "https://cdn-icons-png.freepik.com/512/778/778631.png",     link: "tecnologia.html"},
-    { texto: "Sistema de Gestión",    icono: "https://cdn-icons-png.freepik.com/512/16517/16517493.png", link: "gestion_calidad.html"},
-    { texto: "Seguridad",             icono: "https://cdn-icons-png.freepik.com/512/1022/1022382.png",   link: "seguridad.html"},
-    { texto: "Administración",        icono: "https://cdn-icons-png.freepik.com/512/13339/13339430.png", link: "administracion.html"},
-    { texto: "TIC's",                 icono: "https://cdn-icons-png.freepik.com/512/780/780477.png",     link: "tics.html"},
-    { texto: "Almacén General",       icono: "https://cdn-icons-png.freepik.com/512/18771/18771476.png", link: "almacen.html"},
-    { texto: "Compras",               icono: "https://cdn-icons-png.freepik.com/512/7438/7438697.png",   link: "compras.html"},
+    { texto: "1",            icono: "https://cdn-icons-png.freepik.com/512/2973/2973740.png",   link: ""},
+    { texto: "2",            icono: "https://cdn-icons-png.freepik.com/512/18191/18191216.png", link: ""},
+    { texto: "3",            icono: "https://cdn-icons-png.freepik.com/512/10908/10908520.png", link: ""},
+    { texto: "4",            icono: "https://cdn-icons-png.freepik.com/512/778/778631.png",     link: ""},
+    { texto: "5",            icono: "https://cdn-icons-png.freepik.com/512/16517/16517493.png", link: ""},
+    { texto: "6",            icono: "https://cdn-icons-png.freepik.com/512/1022/1022382.png",   link: ""},
+    { texto: "7",            icono: "https://cdn-icons-png.freepik.com/512/13339/13339430.png", link: ""},
+    { texto: "8",            icono: "https://cdn-icons-png.freepik.com/512/780/780477.png",     link: ""},
+    { texto: "9",            icono: "https://cdn-icons-png.freepik.com/512/18771/18771476.png", link: ""},
+    { texto: "10",           icono: "https://cdn-icons-png.freepik.com/512/7438/7438697.png",   link: ""},
   ];
-  
 
   elementos.forEach((elem, index) => {
     const node = createNodeElement(elem, index);
@@ -81,10 +79,10 @@ function createNodeElement(element, index) {
   node.classList.add("nodo", "nodo-hijo");
   node.innerHTML = `<img src="${element.icono}" alt="${element.texto}"><span>${element.texto}</span>`;
   node.style.backgroundColor = element.color;
-node.addEventListener("click", () => {
-  window.location.href = element.link;
-});
-
+  node.addEventListener("click", () => {
+    window.location.href = element.link;
+  });
+  
   return node;
 }
 

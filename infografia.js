@@ -9,24 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const element = document.getElementById('image-container');
         if (!element) throw new Error('Container element not found');
 
-        const isMobile = window.innerWidth <= MOBILE_BREAKPOINT || ('ontouchstart' in window);
-
+let isMobile = window.innerWidth <= MOBILE_BREAKPOINT; // Usar 'let' en lugar de 'const'
         // 2. Configuración de Panzoom
-        const startScale = isMobile ? 1 : 3;
+        const startScale = isMobile ? 1.2 : 3.0; // Reducir zoom inicial solo para móviles
 
         const panzoomConfig = {
-            maxScale: MAX_SCALE,
-            minScale: MIN_SCALE,
+            maxScale: 5,
+            minScale: 0.5,
             contain: 'outside',
             startScale: startScale,
-            step: ZOOM_STEP,
-            animate: false, // Desactivar animaciones por defecto
+            step: 0.1,
+            animate: true,
             duration: 200,
             easing: 'ease-out',
-            acceleration: true,
             transformOrigin: 'center center',
-            touchAction: 'none',
-            excludeClass: 'control-btn'
+            setPosition: 'center', // Asegurar que la imagen se centre
+            overflow: 'visible', // Añadir esta línea
+            bounds: true // Añadir esta línea
         };
 
         const panzoom = Panzoom(element, panzoomConfig);
@@ -106,14 +105,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const body = document.body;
         let isDarkMode = localStorage.getItem('darkMode') === 'true';
 
+        // Función para actualizar el icono
+        const updateThemeIcon = () => {
+            const icon = moonImage.querySelector('i');
+            icon.classList.toggle('fa-moon', !isDarkMode);
+            icon.classList.toggle('fa-sun', isDarkMode);
+        };
+
+        // Aplicar tema inicial
         if (isDarkMode) {
             body.classList.add('dark-mode');
         }
+        updateThemeIcon();
 
         moonImage.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             isDarkMode = !isDarkMode;
             localStorage.setItem('darkMode', isDarkMode);
+            updateThemeIcon();
         });
 
         // 8. Manejo de redimensionamiento
@@ -202,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.history.back();
                 } else {
                     window.location.href = 'index.html';
-                }
+            }
             } catch (error) {
                 console.error('Error handling popstate:', error);
                 window.location.href = 'index.html';

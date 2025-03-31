@@ -6,17 +6,31 @@
   --footer-height: 3rem;
 }
 
+/* Modificar los estilos base */
 html, body {
   font-family: 'Dongle', sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; /* Evita el desplazamiento no deseado */
-  background: linear-gradient(300deg, #5fb0db 0%, #17b598 60%, #86e9a4 100%);
+  width: 100%;
+  position: fixed; /* Cambiar de overflow: hidden a position: fixed */
+  overflow-y: auto; /* Permitir scroll vertical */
 }
 
+/* Modo claro por defecto */
+body {
+    background: linear-gradient(300deg, 
+        #b7e4c7 0%,        /* Verde salvia medio */
+        #bde0fe 50%,       /* Azul cielo medio */
+        #ffd6a5 100%       /* Melocotón medio */
+    );
+    color: var(--color-texto);
+}
+
+/* Modo oscuro */
 body.dark-mode {
   background: linear-gradient(300deg, #1f2f56 0%, #122d44 60%, #7b94b5 100%);
+  color: var(--color-texto2);
 }
 
 .menu-image {
@@ -37,32 +51,36 @@ body.dark-mode {
   color: var(--color-primario);
 }
 
+/* Ajustar el main para scroll */
 main {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Cambiar a flex-start */
   padding: 1rem;
   margin-bottom: var(--footer-height);
   height: calc(100vh - var(--footer-height) - 40px); /* Ajustar altura para el footer y el navbar */
+  overflow-y: auto; /* Permitir scroll vertical */
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Modificar los estilos existentes del contenedor de imagen */
+/* Modificar los estilos del contenedor de imagen */
 .image-container {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center; /* Cambiado de flex-start a center */
-  overflow: auto;
+  align-items: center; /* Cambiar a center */
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch;
   cursor: default;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   scroll-behavior: smooth;
-  position: relative; /* Añadido */
-  padding: 20px; /* Añadir padding para evitar que la imagen se corte */
+  position: relative;
+  padding: 10px; /* Reducir padding */
   will-change: transform;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -70,16 +88,18 @@ main {
 }
 
 .image-container img {
-  width: 100%;
+  width: auto; /* Cambiar a auto */
   height: auto;
-  max-width: 400%;
-  max-height: 400%;
+  max-width: 100%; /* Reducir de 400% a 100% */
+  max-height: 100%; /* Reducir de 400% a 100% */
   object-fit: contain;
   transition: transform 0.3s ease;
-  transform-origin: center; /* Cambiado de top center a center */
-  pointer-events: none; /* Evita problemas de arrastre en la imagen */
-  position: relative; /* Añadido */
-  margin: auto; /* Añadido */
+  transform-origin: center;
+  pointer-events: none;
+  position: relative;
+  margin: auto;
+  transform: none !important; /* Eliminar cualquier transformación anterior */
+  left: 0 !important; /* Eliminar el desplazamiento a la izquierda */
 }
 
 /* Añadir estilos para la barra de desplazamiento */
@@ -104,26 +124,16 @@ main {
   background: rgba(0, 0, 0, 0.7);
 }
 
+/* Ajustar el wrapper de la imagen */
 .image-wrapper {
   width: 100%;
-  height: calc(100vh - 80px); /* Ajusta según el tamaño de tu navbar y footer */
-  overflow: hidden;
+  height: calc(100vh - var(--footer-height)); /* Cambiar a calc(100vh - var(--footer-height)) */
+  overflow: visible;
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-.image-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Alinea la imagen en la parte superior */
-  overflow: auto;
-  position: relative;
-  padding: 20px; /* Espacio alrededor de la imagen */
+  align-items: center; /* Cambiar a center */
+  padding: 10px;
 }
 
 .image-container:active {
@@ -186,6 +196,12 @@ footer.controls {
 .control-btn:hover {
   background: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  background-color: #25D366 !important;
+  padding: 10px 20px !important;
+  text-decoration: none !important;
 }
 
 /* Estilos para el icono del sol */
@@ -316,11 +332,12 @@ footer.controls {
     }
 
     .image-container {
-        padding: 20px;
+        padding: 10px;
     }
 
     .image-container img {
         max-width: 90%;
+        max-height: 90%;
     }
 }
 
@@ -396,6 +413,7 @@ footer.controls {
 
   .image-wrapper {
     padding: 10px;
+    height: calc(100vh - 100px);
   }
 
   .controls-group {
@@ -414,6 +432,16 @@ footer.controls {
 
   .image-container img {
     max-width: 100%;
+    max-height: 100%;
+  }
+
+  .image-container {
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .image-wrapper {
+    min-height: calc(100vh - 120px); /* Ajustar altura mínima */
   }
 }
 
@@ -496,6 +524,7 @@ footer.controls {
   max-height: 100%;
   object-fit: contain;
   margin: auto;
+  transform-origin: top center; /* Cambiar origen de transformación */
 }
 
 /* Ajustes específicos para PC */
@@ -571,4 +600,24 @@ body.dark-mode .swal2-html-container {
     .swal2-html-container {
         font-size: 1.3rem !important;
     }
+}
+
+/* Mejorar el comportamiento del scroll */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
 }
