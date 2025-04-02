@@ -1,0 +1,878 @@
+/* ================================================== */
+/* Variables CSS */
+/* ================================================== */
+:root {
+  /* --- Variables de Color --- */
+  --color-secundario: #182349;
+  --color-fondo: #F5F7FB;
+  --color-texto: #2D3436;
+  --color-texto2: #FFFFFF;
+
+  /* --- Variables de Tipografía --- */
+  --font-principal: 'Arial', sans-serif;
+
+  /* --- Variables de Tamaño y Espaciado para Nodos --- */
+  /* Usan 'vw' para ser responsivos al ancho de la ventana, con límites min/max en píxeles */
+  --nodo-size: 8vw; /* Reduced from 10vw to 8vw */
+  --nodo-min-size: 140px; /* Reduced minimum size */
+  --nodo-max-size: 235px; /* Reduced maximum size y es el que ajusta el tamaño  */
+  --nodo-spacing: 6rem; /* Reduced spacing */
+
+  /* --- Otras Variables --- */
+  --footer-height: 1.7rem; /* Altura fija del footer */
+  /* Se define --transition-speed y --focus-outline más adelante o falta definirlas aquí */
+}
+
+/* ================================================== */
+/* Estilos Base */
+/* ================================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-principal);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1e23, #2c3e50, #1a1e23) fixed;
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1.5;
+  overflow: auto;
+}
+
+/* ================================================== */
+/* Layout */
+/* ================================================== */
+header {
+  background-color: var(--color-fondo);
+  padding: 0.5rem 0;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  position: fixed; /* Cambiado de relative a fixed */
+  width: 100%;
+  top: 0; /* Asegura que esté pegado arriba */
+  left: 0; /* Asegura alineación izquierda */
+  right: 0; /* Asegura que cubra todo el ancho */
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  width: 100%; /* Cambiado de max-width a width */
+  margin: 0 auto;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 100vw; /* Añadido para asegurar que no exceda el viewport */
+  box-sizing: border-box; /* Añadido para incluir padding en el ancho */
+}
+
+/* Ajuste para el contenido debajo del header */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  padding-top: calc(4rem + 1rem); /* Ajusta según la altura de tu header */
+  padding-bottom: calc(var(--footer-height) + 6rem);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.mapa-container {
+  margin-top: 400px; /* Increased from 250px */
+  margin-bottom: 300px; /* Increased from 180px */
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: calc(130vh - 120px); /* Increased from 100vh */
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in forwards;
+}
+
+footer {
+  background-color: var(--color-fondo);
+  padding: 0.3rem;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  height: var(--footer-height);
+  box-shadow: 0 -0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+footer p {
+  color: var(--color-texto);
+  margin: 0;
+}
+
+/* ================================================== */
+/* Componentes */
+/* ================================================== */
+/* Header */
+header nav p {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--color-texto);
+  text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+  flex-grow: 1;
+  text-align: center;
+  margin: 0;
+}
+
+/* Botones y Enlaces */
+header nav button,
+header nav a,
+.btn-instructions {
+  background-color: var(--color-secundario);
+  color: var(--color-texto2);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  flex: 1;
+  max-width: 300px;
+  margin: 0;
+  transition: background-color var(--transition-speed, 0.2s) ease,
+              transform var(--transition-speed, 0.2s) ease,
+              box-shadow var(--transition-speed, 0.2s) ease;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Nodo Principal */
+#nodo-principal {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  width: 18vw;
+  max-width: 350px;
+  height: 18vw;
+  max-height: 350px;
+  margin: 1rem auto;
+  border-radius: 50%;
+  color: var(--color-texto2);
+  font-size: 2.5rem;
+  font-weight: bold;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: pulse 2s infinite;
+  background-repeat: no-repeat;
+}
+
+/* Nodos Secundarios */
+.nodo {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: var(--nodo-size);
+  min-width: var(--nodo-min-size);
+  max-width: var(--nodo-max-size);
+  height: var(--nodo-size);
+  min-height: var(--nodo-min-size);
+  max-height: var(--nodo-max-size);
+  border-radius: 50%;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: #000000;
+  opacity: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: bounceOut 0.3s ease-in-out forwards;
+  transform-origin: center center;
+  padding: 1rem;
+}
+
+.nodo span {
+  font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+}
+
+/* Botón de regreso */
+.btn-back {
+  background-color: var(--color-secundario);
+  color: var(--color-texto2);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  order: -1;
+  width: auto;
+  margin-right: 1rem;
+  transition: background-color var(--transition-speed, 0.2s) ease,
+              transform var(--transition-speed, 0.2s) ease,
+              box-shadow var(--transition-speed, 0.2s) ease;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-back:hover {
+  background-color: #fc2f2f;
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.35rem 0.6rem rgba(0, 0, 0, 0.3);
+}
+
+.btn-back:focus {
+  outline: 2px solid var(--color-secundario);
+  outline-offset: 2px;
+}
+
+/* ================================================== */
+/* Estados */
+/* ================================================== */
+body.dark-mode {
+  --color-fondo: #17202a;
+  --color-secundario: #33CC66;
+  --color-texto: #FFFFFF;
+}
+
+body.dark-mode header,
+body.dark-mode footer {
+  background-color: #17202a;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode header nav p,
+body.dark-mode footer p {
+  color: #FFFFFF;
+}
+
+body.dark-mode header nav button,
+body.dark-mode .btn-instructions {
+  background-color: #33CC66;
+  color: #FFFFFF;
+}
+
+body.dark-mode header nav button:hover,
+body.dark-mode .btn-instructions:hover {
+  background-color: #28a745;
+}
+
+body:not(.dark-mode) {
+  background: linear-gradient(135deg,#839192,#839192,#839192) fixed;
+}
+
+header nav button:hover,
+header nav a:hover,
+.btn-instructions:hover {
+  background-color: #000000;
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.35rem 0.6rem rgba(0, 0, 0, 0.3);
+}
+
+header nav button:focus,
+header nav a:focus,
+.btn-instructions:focus {
+  outline: 2px solid var(--color-secundario);
+  outline-offset: 2px;
+}
+
+.nodo:hover {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nodo:focus {
+  outline: 2px solid #000000;
+  outline-offset: 4px;
+  transform: scale(1.05);
+}
+
+.nodo img:hover {
+  transform: rotate(10deg);
+}
+
+/* Colores y Retrasos de Animación para Nodos Secundarios */
+.nodo:nth-child(3)   { animation-delay: 0.11s; background-color: #28b463; }
+.nodo:nth-child(4)   { animation-delay: 0.16s; background-color: #d4ac0d; }
+.nodo:nth-child(5)   { animation-delay: 0.21s; background-color: #f06292; }
+.nodo:nth-child(6)   { animation-delay: 0.26s; background-color: #9fa8da; }
+.nodo:nth-child(7)   { animation-delay: 0.31s; background-color: #ef9a9a; }
+.nodo:nth-child(8)   { animation-delay: 0.36s; background-color: #f57c00; }
+.nodo:nth-child(9)   { animation-delay: 0.41s; background-color: #aeb6bf; }
+.nodo:nth-child(10)  { animation-delay: 0.46s; background-color: #42a5f5; }
+.nodo:nth-child(11)  { animation-delay: 0.51s; background-color: #a1887f; }
+.nodo:nth-child(12)  { animation-delay: 0.56s; background-color: #4db6ac; }
+
+/* ================================================== */
+/* Animaciones */
+/* ================================================== */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
+}
+
+@keyframes spinAndGlow {
+  0% {
+    transform: rotate(0deg) scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
+}
+
+@keyframes bounceOut {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translate(0, 0);
+    z-index: 1;
+  }
+  20% {
+    opacity: 0.3;
+    transform: scale(0.5) translate(calc(var(--x) * 0.3), calc(var(--y) * 0.3));
+  }
+  70% {
+    opacity: 0.8;
+    transform: scale(1.1) translate(var(--x), var(--y));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate(var(--x), var(--y));
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideDownBounce {
+  0% { opacity: 0; transform: translateY(-100%); }
+  60% { opacity: 1; transform: translateY(10%); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOutDown {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-0px); }
+}
+
+/* ================================================== */
+/* Media Queries (Estilos Responsivos) - REFACTORIZADO */
+
+/* Extra Small Mobile (Portrait): 320px - 480px */
+@media (max-width: 480px) {
+  header nav p {
+    font-size: 1.2rem;
+  }
+  .mapa-container {
+    margin-top: 200px; /* Reducido de 400px */
+    margin-bottom: 150px; /* Reducido de 300px */
+    min-height: calc(100vh - 90px);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  #nodo-principal {
+    width: clamp(280px, 70vw, 280px);
+    height: clamp(280px, 70vw, 280px);
+    font-size: 1.5rem;
+  }
+  .nodo {
+    width: clamp(180px, 70vw, 220px);
+    height: clamp(180px, 70vw, 220px);
+    font-size: 1rem;
+    margin: 0.8rem auto;
+  }
+  .nodo span {
+    font-size: 0.9rem;
+  }
+  .nodo img {
+    width: 40%;
+  }
+}
+
+/* Small Mobile (Landscape): 481px - 600px */
+@media (min-width: 481px) and (max-width: 600px) and (orientation: landscape) {
+  header nav p {
+    font-size: 1.3rem;
+  }
+  .mapa-container {
+    margin-top: 250px;
+    margin-bottom: 200px;
+    min-height: calc(100vh - 100px);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  #nodo-principal {
+    width: clamp(250px, 50vw, 300px);
+    height: clamp(250px, 50vw, 300px);
+    font-size: 1.6rem;
+  }
+  .nodo {
+    width: clamp(180px, 30vw, 200px);
+    height: clamp(180px, 30vw, 200px);
+    font-size: 1.1rem;
+    margin: 0.6rem;
+  }
+  .nodo span {
+    font-size: 1rem;
+  }
+  .nodo img {
+    width: 40%;
+  }
+}
+
+/* Small Tablets (Portrait): 601px - 768px */
+@media (max-width: 768px) {
+  header { padding: 1rem; }
+  header .container { padding: 0.5rem; }
+  header nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem; /* Reduje el gap entre elementos */
+    padding: 0.3rem;
+  }
+  header nav p {
+    font-size: clamp(1.7rem, 4.5vw, 1.3rem);
+    width: 100%;
+    margin: 0.2rem 0;
+    order: -1; /* Mantiene el título en la parte superior */
+    text-align: center; /* Centra el título */
+  }
+
+  header nav button,
+  .btn-instructions,
+  #toggleDarkMode {
+    font-size: 1.5rem;
+    width: auto; /* Ajusta el ancho automáticamente según el contenido */
+    max-width: 150px;
+    min-height: auto; /* Permite que la altura se ajuste al contenido */
+    margin: 0.3rem auto;
+    padding: 0.5rem;
+  }
+
+  .body {
+    padding-top: 10rem;
+  }
+  .mapa-container {
+    margin-top: 6rem; /* Ajuste para evitar la superposición del header */
+    margin-bottom: 2rem;
+    padding: 1rem 10px;
+    flex: 1;
+    /* margin-top: 2rem; - Eliminado, ahora se usa un valor fijo */
+    /* margin-bottom: 2rem; - Mantenido */
+  }
+
+  #nodo-principal {
+    width: clamp(315px, 70vw, 315px);
+    height: clamp(315px, 70vw, 315px);
+    max-width: 100vw;
+    max-height: 100vw;
+    font-size: clamp(1rem, 5vw, 1.3rem);
+    margin: 0 auto 1.5rem auto;
+    position: relative;
+    top: auto;
+    animation: pulse 2.5s infinite;
+  }
+
+  .nodo {
+    position: relative !important;
+    width: clamp(220px, 70vw, 290px) !important;
+    height: clamp(220px, 70vw, 290px) !important;
+    max-width: 90vw;
+    max-height: 90vw;
+    margin: 1.2rem auto;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    opacity: 1;
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .nodo span {
+    font-size: clamp(1.8rem, 3.8vw, 1.1rem);
+  }
+
+  .nodo img { width: 45%; }
+
+  footer {
+    /* margin-top: auto; - Comentado para evitar que se quede en medio si el contenido es corto */
+    height: auto; /* Permite que la altura se ajuste al contenido */
+    padding: 0.6rem 0.5rem;
+    position: fixed; /* Cambiado a fixed para que siempre esté en la parte inferior */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
+  }
+  footer p {
+    font-size: 0.85rem;
+    white-space: normal;
+    text-overflow: clip;
+  }
+
+  .swal-wide { width: 90%; max-width: 500px; }
+  .swal2-popup { font-size: 0.9rem; padding: 1rem; }
+  .swal2-title { font-size: 1.2rem !important; }
+  .swal2-confirm { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+
+  .nodo:hover {
+    transform: none !important;
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.5);
+  }
+
+  @media (orientation: landscape) {
+    .mapa-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.2rem;
+      height: auto;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nodo-principal {
+      width: clamp(150px, 28vh, 190px);
+      height: clamp(150px, 28vh, 190px);
+      grid-column: auto;
+      grid-row: auto;
+      margin: 0;
+    }
+
+    .nodo {
+      width: 100% !important;
+      height: clamp(150px, 28vh, 190px) !important;
+      margin: 0;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      animation: fadeIn 0.5s ease-out forwards !important;
+    }
+    .nodo span {
+      font-size: clamp(0.8rem, 2vw, 1rem);
+    }
+    .nodo img { width: 40%; }
+  }
+}
+
+/* Tablets (Landscape) / Laptops (Small Screen): 769px - 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  header nav p {
+    font-size: 1.5rem;
+  }
+  .mapa-container {
+    margin-top: 350px;
+    margin-bottom: 275px;
+    min-height: calc(100vh - 100px);
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+  #nodo-principal {
+    width: clamp(300px, 30vw, 350px);
+    height: clamp(300px, 30vw, 350px);
+    font-size: 2rem;
+  }
+  .nodo {
+    width: clamp(220px, 20vw, 270px);
+    height: clamp(220px, 20vw, 270px);
+    font-size: 1.4rem;
+    margin: 0.8rem;
+  }
+  .nodo img {
+    width: 50%;
+  }
+  .nodo span {
+    font-size: 1.2rem;
+  }
+}
+
+/* Laptops / Small Desktops: 1025px - 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  header nav p {
+    font-size: 1.6rem;
+  }
+  .mapa-container {
+    margin-top: 375px;
+    margin-bottom: 285px;
+    min-height: calc(110vh - 100px);
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+  }
+  #nodo-principal {
+    width: min(350px, 28vw);
+    height: min(350px, 28vw);
+    font-size: 2.2rem;
+  }
+  .nodo {
+    width: clamp(240px, 18vw, 260px);
+    height: clamp(240px, 18vw, 260px);
+    margin: 0.8rem;
+    font-size: 1.5rem;
+  }
+  .nodo img { width: 50%; }
+  .nodo span { font-size: 1.3rem; }
+}
+
+/* --- Estilos para Pantallas Medianas/Tablets Grandes (hasta 1200px) --- */
+@media (max-width: 1200px) {
+  header nav p {
+    font-size: 1.5rem;
+  }
+
+  .mapa-container {
+    margin-top: 350px;
+    margin-bottom: 275px;
+    min-height: calc(115vh - 110px);
+  }
+
+  #nodo-principal {
+    width: clamp(280px, 25vw, 320px);
+    height: clamp(280px, 25vw, 320px);
+    font-size: 1.8rem;
+  }
+
+  .nodo {
+    width: clamp(220px, 18vw, 270px);
+    height: clamp(220px, 18vw, 270px);
+    font-size: 1.4rem;
+  }
+
+  .nodo img {
+    width: 50%;
+  }
+
+  .nodo span {
+    font-size: 1.2rem;
+  }
+}
+
+/* --- Estilos específicos para Escritorio (1201px en adelante) --- */
+@media (min-width: 1201px) {
+  header nav p {
+    font-size: 1.6rem;
+  }
+
+  .mapa-container {
+    margin-top: 400px;
+    margin-bottom: 300px;
+    min-height: calc(120vh - 100px);
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+  }
+
+  #nodo-principal {
+    width: min(30rem, 350px);
+    height: min(30rem, 350px);
+    font-size: 1.5rem;
+  }
+
+  .nodo {
+    width: clamp(260px, 16vw, 250px);
+    height: clamp(260px, 16vw, 250px);
+    margin: 0.8rem;
+    font-size: 1.5rem;
+  }
+
+  .nodo img { width: 50%; }
+  .nodo span { font-size: 1.3rem; }
+}
+
+/* --- VISTA MÓVIL (≤768px) --- */
+@media (max-width: 768px) {
+  header { padding: 1rem; }
+  header .container { padding: 0.5rem; }
+  header nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.3rem;
+  }
+  header nav p {
+    font-size: clamp(1.7rem, 4.5vw, 1.3rem);
+    width: 100%; ;
+    margin: 0.2rem 0;
+    order: -1;
+  }
+
+  header nav button,
+  .btn-instructions,
+  #toggleDarkMode {
+    font-size: 1.5rem;
+    width: 150%;
+    max-width: 150px;
+    min-height: 100px;
+    margin: 0.3rem auto;
+    padding: 0.5rem;
+  }
+
+  .mapa-container {
+    margin-top: 200px;
+    margin-bottom: 150px;
+    padding: 1rem 10px;
+    flex: 1;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  #nodo-principal {
+    width: clamp(315px, 70vw, 315px);
+    height: clamp(315px, 70vw, 315px);
+    max-width: 100vw;
+    max-height: 100vw;
+    font-size: clamp(1rem, 5vw, 1.3rem);
+    margin: 0 auto 1.5rem auto;
+    position: relative;
+    top: auto;
+    animation: pulse 2.5s infinite;
+  }
+
+  .nodo {
+    position: relative !important;
+    width: clamp(220px, 70vw, 290px) !important;
+    height: clamp(220px, 70vw, 290px) !important;
+    max-width: 90vw;
+    max-height: 90vw;
+    margin: 1.2rem auto;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    opacity: 1;
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .nodo span {
+    font-size: clamp(1.8rem, 3.8vw, 1.1rem);
+  }
+
+  .nodo img { width: 45%; }
+
+  footer {
+    margin-top: auto;
+    height: auto;
+    padding: 0.6rem 0.5rem;
+  }
+  footer p {
+    font-size: 0.85rem;
+    white-space: normal;
+    text-overflow: clip;
+  }
+
+  .swal-wide { width: 90%; max-width: 500px; }
+  .swal2-popup { font-size: 0.9rem; padding: 1rem; }
+  .swal2-title { font-size: 1.2rem !important; }
+  .swal2-confirm { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+
+  .nodo:hover {
+    transform: none !important;
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.5);
+  }
+
+  @media (orientation: landscape) {
+    .mapa-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.2rem;
+      height: auto;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #nodo-principal {
+      width: clamp(150px, 28vh, 190px);
+      height: clamp(150px, 28vh, 190px);
+      grid-column: auto;
+      grid-row: auto;
+      margin: 0;
+    }
+
+    .nodo {
+      width: 100% !important;
+      height: clamp(150px, 28vh, 190px) !important;
+      margin: 0;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      animation: fadeIn 0.5s ease-out forwards !important;
+    }
+    .nodo span {
+      font-size: clamp(0.8rem, 2vw, 1rem);
+    }
+    .nodo img { width: 40%; }
+  }
+}
+
+/* Extra-Large Screens / TV: 1441px and more */
+@media (min-width: 1441px) {
+  header nav p {
+    font-size: 2rem;
+  }
+  .mapa-container {
+    margin-top: 450px;
+    margin-bottom: 350px;
+    min-height: calc(100vh - 120px);
+    margin-top: 8rem;
+    margin-bottom: 8rem;
+    max-width: 1600px;
+  }
+  #nodo-principal {
+    width: min(400px, 25vw);
+    height: min(400px, 25vw);
+    font-size: 2.5rem;
+  }
+  .nodo {
+    width: clamp(280px, 14vw, 300px);
+    height: clamp(280px, 14vw, 300px);
+    margin: 1rem;
+    font-size: 1.7rem;
+  }
+  .nodo img { width: 60%; }
+  .nodo span { font-size: 1.5rem; }
+}

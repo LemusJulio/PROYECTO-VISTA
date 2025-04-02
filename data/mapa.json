@@ -1,0 +1,644 @@
+{
+  "nodoCentral": {
+    "imagen": "imagenes/logo.jpg",
+    "textos": ["MARKETING", "ONꓤƎꓕNI"]
+  },
+  "areas": [
+    {
+      "id": "principal",
+      "nodoPrincipalTexto": "MARKETING INTERNO",
+      "elementos": [
+        {
+          "texto": "Producción",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "index.html?area=produccion"
+        },
+        {
+          "texto": "Operación y Logística",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "index.html?area=operacion_logistica"
+        },
+        {
+          "texto": "Dirección General",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "index.html?area=direccion_general"
+        },
+        {
+          "texto": "Tecnología",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "index.html?area=tecnologia"
+        },
+        {
+          "texto": "Sistema de Gestión",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "index.html?area=sistema_gestion"
+        },
+        {
+          "texto": "Seguridad",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "index.html?area=seguridad"
+        },
+        {
+          "texto": "Administración",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "index.html?area=administracion"
+        },
+        {
+          "texto": "TIC's",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "index.html?area=tics"
+        },
+        {
+          "texto": "Almacén General",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "index.html?area=almacen_general"
+        },
+        {
+          "texto": "Compras",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "index.html?area=compras"
+        }
+      ]
+    },
+    {
+      "id": "produccion",
+      "nodoPrincipalTexto": "Producción",
+      "nodoCentralIcono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+      "nodoCentralColor": "#28b463",
+      "elementos": [
+        {
+          "texto": "Infografía Producción 1",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Procedimiento P2",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Instrucción P3",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Guía P4",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Protocolo P5",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Normativa P6",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Manual P7",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Checklist P8",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Formulario P9",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Registro P10",
+          "icono": "https://cdn-icons-png.freepik.com/512/2973/2973740.png",
+          "link": "./data/infografias/infografia copy.html"
+        }
+      ]
+    },
+    {
+      "id": "operacion_logistica",
+      "nodoPrincipalTexto": "Operación y Logística",
+      "nodoCentralIcono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+      "nodoCentralColor": "#d4ac0d",
+      "elementos": [
+        {
+          "texto": "Infografía O1",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Procedimiento O2",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Instrucción O3",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Guía O4",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Protocolo O5",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Normativa O6",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Manual O7",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Checklist O8",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Formulario O9",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "./data/infografias/infografia copy.html"
+        },
+        {
+          "texto": "Registro O10",
+          "icono": "https://cdn-icons-png.freepik.com/512/18191/18191216.png",
+          "link": "./data/infografias/infografia copy.html"
+        }
+      ]
+    },
+    {
+      "id": "direccion_general",
+      "nodoPrincipalTexto": "Dirección General",
+      "nodoCentralIcono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+      "nodoCentralColor": "#f06292",
+      "elementos": [
+        {
+          "texto": "Infografía DG1",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "direccion_general.html"
+        },
+        {
+          "texto": "Procedimiento DG2",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "direccion_general.html"
+        },
+        {
+          "texto": "Instrucción DG3",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "direccion_general.html"
+        },
+        {
+          "texto": "Guía DG4",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "direccion_general.html"
+        },
+        {
+          "texto": "Protocolo DG5",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "direccion_general.html"
+        },
+        {
+          "texto": "Normativa DG6",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "direccion_general.html"
+        },
+        {
+          "texto": "Manual DG7",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "direccion_general.html"
+        },
+        {
+          "texto": "Checklist DG8",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "direccion_general.html"
+        },
+        {
+          "texto": "Formulario DG9",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "direccion_general.html"
+        },
+        {
+          "texto": "Registro DG10",
+          "icono": "https://cdn-icons-png.freepik.com/512/10908/10908520.png",
+          "link": "direccion_general.html"
+        }
+      ]
+    },
+    {
+      "id": "tecnologia",
+      "nodoPrincipalTexto": "Tecnología",
+      "nodoCentralIcono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+      "nodoCentralColor": "#9fa8da",
+      "elementos": [
+        {
+          "texto": "Infografía T1",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "tecnologia.html"
+        },
+        {
+          "texto": "Procedimiento T2",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "tecnologia.html"
+        },
+        {
+          "texto": "Instrucción T3",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "tecnologia.html"
+        },
+        {
+          "texto": "Guía T4",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "tecnologia.html"
+        },
+        {
+          "texto": "Protocolo T5",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "tecnologia.html"
+        },
+        {
+          "texto": "Normativa T6",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "tecnologia.html"
+        },
+        {
+          "texto": "Manual T7",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "tecnologia.html"
+        },
+        {
+          "texto": "Checklist T8",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "tecnologia.html"
+        },
+        {
+          "texto": "Formulario T9",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "tecnologia.html"
+        },
+        {
+          "texto": "Registro T10",
+          "icono": "https://cdn-icons-png.freepik.com/512/778/778631.png",
+          "link": "tecnologia.html"
+        }
+      ]
+    },
+    {
+      "id": "sistema_gestion",
+      "nodoPrincipalTexto": "Sistema de Gestión",
+      "nodoCentralIcono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+      "nodoCentralColor": "#ef9a9a",
+      "elementos": [
+        {
+          "texto": "Infografía SG1",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "gestion_calidad.html"
+        },
+        {
+          "texto": "Procedimiento SG2",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "gestion_calidad.html"
+        },
+        {
+          "texto": "Instrucción SG3",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "gestion_calidad.html"
+        },
+        {
+          "texto": "Guía SG4",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "gestion_calidad.html"
+        },
+        {
+          "texto": "Protocolo SG5",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "gestion_calidad.html"
+        },
+        {
+          "texto": "Normativa SG6",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "gestion_calidad.html"
+        },
+        {
+          "texto": "Manual SG7",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "gestion_calidad.html"
+        },
+        {
+          "texto": "Checklist SG8",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "gestion_calidad.html"
+        },
+        {
+          "texto": "Formulario SG9",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "gestion_calidad.html"
+        },
+        {
+          "texto": "Registro SG10",
+          "icono": "https://cdn-icons-png.freepik.com/512/16517/16517493.png",
+          "link": "gestion_calidad.html"
+        }
+      ]
+    },
+    {
+      "id": "seguridad",
+      "nodoPrincipalTexto": "Seguridad",
+      "nodoCentralIcono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+      "nodoCentralColor": "#f57c00",
+      "elementos": [
+        {
+          "texto": "Infografía S1",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "seguridad.html"
+        },
+        {
+          "texto": "Procedimiento S2",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "seguridad.html"
+        },
+        {
+          "texto": "Instrucción S3",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "seguridad.html"
+        },
+        {
+          "texto": "Guía S4",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "seguridad.html"
+        },
+        {
+          "texto": "Protocolo S5",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "seguridad.html"
+        },
+        {
+          "texto": "Normativa S6",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "seguridad.html"
+        },
+        {
+          "texto": "Manual S7",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "seguridad.html"
+        },
+        {
+          "texto": "Checklist S8",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "seguridad.html"
+        },
+        {
+          "texto": "Formulario S9",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "seguridad.html"
+        },
+        {
+          "texto": "Registro S10",
+          "icono": "https://cdn-icons-png.freepik.com/512/1022/1022382.png",
+          "link": "seguridad.html"
+        }
+      ]
+    },
+    {
+      "id": "administracion",
+      "nodoPrincipalTexto": "Administración",
+      "nodoCentralIcono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+      "nodoCentralColor": "#aeb6bf",
+      "elementos": [
+        {
+          "texto": "Infografía A1",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "administracion.html"
+        },
+        {
+          "texto": "Procedimiento A2",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "administracion.html"
+        },
+        {
+          "texto": "Instrucción A3",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "administracion.html"
+        },
+        {
+          "texto": "Guía A4",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "administracion.html"
+        },
+        {
+          "texto": "Protocolo A5",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "administracion.html"
+        },
+        {
+          "texto": "Normativa A6",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "administracion.html"
+        },
+        {
+          "texto": "Manual A7",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "administracion.html"
+        },
+        {
+          "texto": "Checklist A8",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "administracion.html"
+        },
+        {
+          "texto": "Formulario A9",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "administracion.html"
+        },
+        {
+          "texto": "Registro A10",
+          "icono": "https://cdn-icons-png.freepik.com/512/13339/13339430.png",
+          "link": "administracion.html"
+        }
+      ]
+    },
+    {
+      "id": "tics",
+      "nodoPrincipalTexto": "TIC's",
+      "nodoCentralIcono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+      "nodoCentralColor": "#42a5f5",
+      "elementos": [
+        {
+          "texto": "Infografía TICS1",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "tics.html"
+        },
+        {
+          "texto": "Procedimiento TICS2",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "tics.html"
+        },
+        {
+          "texto": "Instrucción TICS3",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "tics.html"
+        },
+        {
+          "texto": "Guía TICS4",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "tics.html"
+        },
+        {
+          "texto": "Protocolo TICS5",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "tics.html"
+        },
+        {
+          "texto": "Normativa TICS6",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "tics.html"
+        },
+        {
+          "texto": "Manual TICS7",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "tics.html"
+        },
+        {
+          "texto": "Checklist TICS8",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "tics.html"
+        },
+        {
+          "texto": "Formulario TICS9",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "tics.html"
+        },
+        {
+          "texto": "Registro TICS10",
+          "icono": "https://cdn-icons-png.freepik.com/512/780/780477.png",
+          "link": "tics.html"
+        }
+      ]
+    },
+    {
+      "id": "almacen_general",
+      "nodoPrincipalTexto": "Almacén General",
+      "nodoCentralIcono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+      "nodoCentralColor": "#a1887f",
+      "elementos": [
+        {
+          "texto": "Infografía AG1",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "almacen.html"
+        },
+        {
+          "texto": "Procedimiento AG2",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "almacen.html"
+        },
+        {
+          "texto": "Instrucción AG3",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "almacen.html"
+        },
+        {
+          "texto": "Guía AG4",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "almacen.html"
+        },
+        {
+          "texto": "Protocolo AG5",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "almacen.html"
+        },
+        {
+          "texto": "Normativa AG6",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "almacen.html"
+        },
+        {
+          "texto": "Manual AG7",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "almacen.html"
+        },
+        {
+          "texto": "Checklist AG8",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "almacen.html"
+        },
+        {
+          "texto": "Formulario AG9",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "almacen.html"
+        },
+        {
+          "texto": "Registro AG10",
+          "icono": "https://cdn-icons-png.freepik.com/512/18771/18771476.png",
+          "link": "almacen.html"
+        }
+      ]
+    },
+    {
+      "id": "compras",
+      "nodoPrincipalTexto": "Compras",
+      "nodoCentralIcono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+      "nodoCentralColor": "#4db6ac",
+      "elementos": [
+        {
+          "texto": "Infografía C1",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "compras.html"
+        },
+        {
+          "texto": "Procedimiento C2",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "compras.html"
+        },
+        {
+          "texto": "Instrucción C3",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "compras.html"
+        },
+        {
+          "texto": "Guía C4",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "compras.html"
+        },
+        {
+          "texto": "Protocolo C5",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "compras.html"
+        },
+        {
+          "texto": "Normativa C6",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "compras.html"
+        },
+        {
+          "texto": "Manual C7",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "compras.html"
+        },
+        {
+          "texto": "Checklist C8",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "compras.html"
+        },
+        {
+          "texto": "Formulario C9",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "compras.html"
+        },
+        {
+          "texto": "Registro C10",
+          "icono": "https://cdn-icons-png.freepik.com/512/7438/7438697.png",
+          "link": "compras.html"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,623 @@
+:root {
+  --color-primario: #ffffff;
+  --color-texto: #000000;
+  --color-texto2: #FFFFFF;
+  --font-principal: 'Arial', sans-serif;
+  --footer-height: 3rem;
+}
+
+/* Modificar los estilos base */
+html, body {
+  font-family: 'Dongle', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed; /* Cambiar de overflow: hidden a position: fixed */
+  overflow-y: auto; /* Permitir scroll vertical */
+}
+
+/* Modo claro por defecto */
+body {
+    background: linear-gradient(300deg, 
+        #b7e4c7 0%,        /* Verde salvia medio */
+        #bde0fe 50%,       /* Azul cielo medio */
+        #ffd6a5 100%       /* Melocotón medio */
+    );
+    color: var(--color-texto);
+}
+
+/* Modo oscuro */
+body.dark-mode {
+  background: linear-gradient(300deg, #1f2f56 0%, #122d44 60%, #7b94b5 100%);
+  color: var(--color-texto2);
+}
+
+.menu-image {
+  color: var(--color-texto2);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.menu-image:hover {
+  background-color: #a73328;
+  transform: translateY(-0.125rem);
+  color: var(--color-primario);
+}
+
+/* Ajustar el main para scroll */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Cambiar a flex-start */
+  padding: 1rem;
+  margin-bottom: var(--footer-height);
+  height: calc(100vh - var(--footer-height) - 40px); /* Ajustar altura para el footer y el navbar */
+  overflow-y: auto; /* Permitir scroll vertical */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Modificar los estilos del contenedor de imagen */
+.image-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Cambiar a center */
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  scroll-behavior: smooth;
+  position: relative;
+  padding: 10px; /* Reducir padding */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+}
+
+.image-container img {
+  width: auto; /* Cambiar a auto */
+  height: auto;
+  max-width: 100%; /* Reducir de 400% a 100% */
+  max-height: 100%; /* Reducir de 400% a 100% */
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+  pointer-events: none;
+  position: relative;
+  margin: auto;
+  transform: none !important; /* Eliminar cualquier transformación anterior */
+  left: 0 !important; /* Eliminar el desplazamiento a la izquierda */
+}
+
+/* Añadir estilos para la barra de desplazamiento */
+.image-container::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.image-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  margin: 2px;
+}
+
+.image-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.image-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Ajustar el wrapper de la imagen */
+.image-wrapper {
+  width: 100%;
+  height: calc(100vh - var(--footer-height)); /* Cambiar a calc(100vh - var(--footer-height)) */
+  overflow: visible;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Cambiar a center */
+  padding: 10px;
+}
+
+.image-container:active {
+  cursor: grabbing;
+}
+
+.image-container img {
+  max-width: 100%;  /* Ajusta según sea necesario */
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: center;
+}
+
+/* Modificar los estilos del footer.controls */
+footer.controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 25px 0;
+  z-index: 999; /* Cambiado de 4000 a 999 para estar debajo del SweetAlert2 */
+}
+
+.controls-group {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.zoom-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px; /* Aumentado de 14px 28px */
+  border-radius: 50px;
+  border: none;
+  color: white;
+  font-size: 20px; /* Aumentado de 18px */
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  background-color: #25D366 !important;
+  padding: 10px 20px !important;
+  text-decoration: none !important;
+}
+
+/* Estilos para el icono del sol */
+.theme-toggle {
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1) rotate(15deg);
+}
+
+
+/* Añadir después de los estilos de btn-help */
+
+.btn-info {
+    background-color: #32b817 !important;
+    padding: 10px 20px !important;
+}
+
+.btn-info:hover {
+    background-color: #961313 !important;
+    transform: translateY(-2px);
+}
+
+.controls-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.zoom-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.right-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-home {
+    background-color: #28a745 !important;
+}
+
+.btn-home:hover {
+    background-color: #218838 !important;
+    transform: translateY(-2px);
+}
+
+/* Media Queries para Responsive Design */
+@media (max-width: 1200px) {
+  
+  .image-container img {
+    width: 120%; /* Ajustar el tamaño de la imagen para pantallas de laptops */
+    max-width: 120%;
+    transform-origin: center; /* Asegurar que se mantiene centrado */
+  }
+
+  .menu-image {
+      font-size: 1.1rem;
+      padding: 0.45rem 0.9rem;
+  }
+
+  footer.controls {
+      padding: 4px 0;
+  }
+
+  button {
+      font-size: 14px;
+      padding: 4.5px 9px;
+  }
+}
+
+@media (min-width: 769px) {
+    .image-wrapper {
+        padding: 20px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .image-container {
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .controls-group {
+        max-width: 1200px;
+        padding: 0 40px;
+    }
+
+    .control-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+
+    /* Añadir tooltips para atajos de teclado */
+    .zoom-controls .control-btn::after {
+        content: attr(data-shortcut);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .zoom-controls .control-btn:hover::after {
+        opacity: 1;
+    }
+
+    .theme-toggle {
+        width: 32px;  /* Tamaño más pequeño para PC */
+        height: 32px;
+    }
+
+    .image-container {
+        padding: 10px;
+    }
+
+    .image-container img {
+        max-width: 90%;
+        max-height: 90%;
+    }
+}
+
+/* Modificar el media query para móviles */
+@media (max-width: 768px) {
+  .image-container img {
+      width: 100%; /* Ajustar el tamaño de la imagen para pantallas más pequeñas */
+      max-width: 100%;
+      transform-origin: center;
+  }
+
+  .menu-image {
+      font-size: 1rem;
+      padding: 0.4rem 0.8rem;
+  }
+
+  footer.controls {
+      padding: 12px 0; /* Aumentado de 3px */
+  }
+
+  button {
+      font-size: 12px;
+      padding: 4px 8px;
+  }
+
+  .controls-group {
+    padding: 0 10px;
+  }
+
+  .control-btn {
+    padding: 12px 16px; /* Aumentado */
+    font-size: 16px; /* Aumentado */
+  }
+
+  .control-btn i {
+    font-size: 24px; /* Aumentado de 20px */
+  }
+
+  .btn-info span {
+    display: none;
+  }
+
+  .btn-info {
+    padding: 12px !important;
+  }
+
+  .control-btn i {
+    font-size: 24px; /* Aumentado de 20px */
+  }
+
+  .btn-info span {
+    display: none;
+  }
+
+  .btn-info {
+    padding: 12px !important;
+  }
+
+  /* Hacer los iconos más grandes en móvil */
+  .control-btn {
+    padding: 10px !important;
+  }
+
+  .theme-toggle {
+    width: 48px; /* Aumentado de 42px */
+    height: 48px;
+  }
+
+  .image-container::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .image-wrapper {
+    padding: 10px;
+    height: calc(100vh - 100px);
+  }
+
+  .controls-group {
+    padding: 0 15px;
+  }
+
+  .control-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  /* Ocultar texto en botones en móvil */
+  .control-btn span {
+    display: none;
+  }
+
+  .image-container img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .image-container {
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .image-wrapper {
+    min-height: calc(100vh - 120px); /* Ajustar altura mínima */
+  }
+}
+
+@media (max-width: 480px) {
+  .image-container img {
+      width: 100%; /* Ajustar el tamaño de la imagen para pantallas más pequeñas */
+      max-width: 100%;
+      transform-origin: center;
+  }
+
+  .menu-image {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
+  }
+
+
+  footer.controls {
+      padding: 10px 0; /* Aumentado de 2px */
+  }
+
+  button {
+      font-size: 10px;
+      padding: 3px 6px;
+  }
+
+  .controls-group {
+    gap: 10px; /* Aumentado de 8px */
+  }
+
+  .control-btn span {
+    display: none;
+  }
+
+  .control-btn {
+    padding: 10px; /* Aumentado de 7px */
+    font-size: 14px; /* Aumentado */
+  }
+
+  .control-btn i {
+    font-size: 18px; /* Iconos más grandes en móvil pequeño */
+  }
+
+  .theme-toggle {
+    width: 40px; /* Aumentado de 30px */
+    height: 40px;
+  }
+
+  .image-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Añadir SweetAlert2 personalización */
+.keyboard-shortcuts-popup {
+    font-family: var(--font-principal);
+}
+
+.keyboard-shortcuts-popup kbd {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 2px 6px;
+    margin: 0 2px;
+}
+
+/* Contenedor de la imagen */
+.image-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  position: relative;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin: auto;
+  transform-origin: top center; /* Cambiar origen de transformación */
+}
+
+/* Ajustes específicos para PC */
+@media (min-width: 769px) {
+    .image-container {
+        padding: 20px;
+    }
+
+    .image-container img {
+        max-width: 100%; /* Reducir ligeramente para asegurar el centrado */
+    }
+}
+
+/* Añadir soporte para prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Añadir estilos para asegurar que SweetAlert2 esté por encima */
+.swal2-container {
+    z-index: 1000 !important; /* Asegura que esté por encima del footer */
+}
+
+/* Update SweetAlert2 personalización */
+.swal2-popup {
+    font-size: 1.4rem !important;
+    padding: 1.5rem !important;
+}
+
+.swal2-title {
+    font-size: 2rem !important;
+    font-weight: 600 !important;
+    color: #2c3e50 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    margin-bottom: 1rem !important;
+}
+
+.swal2-html-container {
+    font-size: 1.5rem !important;
+    line-height: 1.7 !important;
+    color: #34495e !important;
+    padding: 0.5rem 1rem !important;
+}
+
+/* Dark mode styles for SweetAlert */
+body.dark-mode .swal2-popup {
+    background: #2c3e50 !important;
+}
+
+body.dark-mode .swal2-title {
+    color: #ecf0f1 !important;
+}
+
+body.dark-mode .swal2-html-container {
+    color: #bdc3c7 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .swal2-popup {
+        font-size: 1.3rem !important;
+    }
+    
+    .swal2-title {
+        font-size: 1.7rem !important;
+    }
+    
+    .swal2-html-container {
+        font-size: 1.3rem !important;
+    }
+}
+
+/* Mejorar el comportamiento del scroll */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
