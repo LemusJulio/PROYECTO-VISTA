@@ -1,0 +1,9 @@
+/* ================================================== */
+/* Footer Components */
+/* ================================================== */
+
+footer p {
+    color: var(--color-texto);
+    margin: 0;
+    font-size: 1rem; /* Base font size */
+  }

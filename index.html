@@ -2,29 +2,57 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mapa mental interactivo sobre marketing y gestión empresarial.">
     <title>Mapa Mental Interactivo</title>
-    
+
     <!-- Estilos -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/nodes.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- SweetAlert2 local -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     <!-- Scripts -->
     <script defer src="js/app.js" type="module"></script>
+    <script>
+        console.log("Index.html loaded");
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM fully loaded");
+            console.log("Body content:", document.body.innerHTML);
+            // Añadir mensaje para verificar la carga
+            document.body.insertAdjacentHTML('afterbegin', 
+                '<div style="padding: 20px; background: yellow;">¡Página cargada!</div>');
+        });
+    </script>
 </head>
+<body>
     <header>
         <div class="container">
             <nav>
-                <button id="toggleDarkMode" aria-label="Cambiar a modo oscuro">Modo Oscuro</button>
-                <p class="titulo">"Crear esta en nuestros sueños, realizar esta en nuestras manos."</p>
-                <button id="instructionsBtn" class="btn-instructions" aria-label="Instrucciones de uso">¿Cómo funciona?</button>
-                <a href="index.html" id="backButton" class="btn-back" aria-label="Volver al inicio" style="display:none;">Regresar</a>
+                <div class="text-container">
+                    <p class="titulo">"Crear esta en nuestros sueños, realizar esta en nuestras manos."</p>
+                </div>
+                <div class="buttons-container">
+                    <button id="toggleDarkMode" aria-label="Cambiar a modo oscuro">Modo Oscuro</button>
+                    <button id="instructionsBtn" class="btn-instructions" aria-label="Instrucciones de uso">¿Cómo funciona?</button>
+                    <a href="index.html" id="backButton" class="btn-back" aria-label="Volver al inicio" style="display:none;">Regresar</a>
+                </div>
             </nav>
         </div>
     </header>
     <main>
         <div class="mapa-container">
             <!-- Indicador de carga -->
-            <div class="loading-indicator" id="loadingIndicator"></div>
+            <div class="loading-indicator" id="loadingIndicator" aria-busy="true"></div>
             
             <div class="nube" id="nodo-principal" role="button" aria-label="Nodo Principal" tabindex="0">
                 <svg viewBox="0 0 220 220">

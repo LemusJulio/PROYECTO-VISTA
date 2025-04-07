@@ -1,0 +1,214 @@
+/* ================================================== */
+/* Media Queries for Responsive Design */
+/* ================================================== */
+
+/* --- VISTA MÓVIL (≤768px) --- */
+@media (max-width: 768px) {
+    header {
+        padding: 0.75rem 0;
+    }
+  
+    header .container {
+        padding: 0 0.5rem;
+    }
+  
+    header nav {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        min-height: 70px;
+    }
+  
+    .text-container {
+        padding: 0.25rem 0;
+        order: -1;
+        width: 100%;
+    }
+  
+    header nav p.titulo {
+        font-size: clamp(1.3rem, 4vw, 1.5rem);
+        margin-bottom: 0.5rem;
+    }
+  
+    .buttons-container {
+        gap: 0.5rem;
+        justify-content: center;
+        width: 100%;
+    }
+  
+    .buttons-container button,
+    .buttons-container a,
+    #toggleDarkMode,
+    .btn-instructions,
+    .btn-back {
+        flex: 1 1 auto;
+        min-width: 110px;
+        max-width: 140px;
+        font-size: 1.1rem;
+        padding: 0.5rem 0.8rem;
+    }
+  
+    .btn-back {
+        margin-right: 0;
+        margin-top: 0.5rem;
+    }
+  
+    main {
+        padding-top: 180px;
+        padding-bottom: 100px;
+        min-height: calc(100vh - 100px - 60px);
+    }
+  
+    .mapa-container {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        min-height: auto;
+        padding-top: 2rem;
+        padding-bottom: 80px;
+        gap: 1.5rem;
+    }
+  
+    #nodo-principal {
+        position: relative;
+        width: clamp(180px, 55vw, 220px);
+        height: clamp(180px, 55vw, 220px);
+        font-size: clamp(1.2rem, 4vw, 1.5rem);
+        margin: 0 auto 1.5rem auto;
+    }
+  
+    .nodo {
+        position: relative !important;
+        transform: none !important;
+        width: clamp(140px, 45vw, 180px) !important;
+        height: clamp(140px, 45vw, 180px) !important;
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+    }
+  
+    .nodo span {
+        font-size: clamp(0.8rem, 2.5vw, 1rem);
+    }
+  
+    .nodo img {
+        width: 45%;
+    }
+  
+    body {
+        padding-bottom: 65px;
+    }
+  
+    footer {
+        position: fixed;
+        bottom: 0;
+        height: auto;
+        min-height: 60px;
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
+    }
+  }
+  
+  /* --- TABLET (≥768px) --- */
+  @media (min-width: 768px) and (max-width: 1023px) {
+        /* Ajustes específicos para botones */
+        .buttons-container {
+          width: 100%;
+          max-width: 600px;
+          margin: 0 auto;
+          justify-content: space-between;
+      }
+      
+      .buttons-container button,
+      .buttons-container a,
+      #toggleDarkMode,
+      .btn-instructions,
+      .btn-back {
+          flex: 1 1 auto;
+          min-width: 120px;
+          max-width: none;
+          margin: 0 0.5rem;
+          font-size: 1rem;
+          padding: 0.6rem 1rem;
+      }
+      
+      .btn-back {
+          margin-top: 0;
+          order: -1; /* Si necesitas ajustar posición */
+      }
+      
+    main {
+        padding-top: 200px;
+    }
+  
+    .mapa-container {
+        max-width: 90%;
+        margin: 2rem auto;
+        display: flex;
+        flex-direction: column; /* Cambiamos a columna */
+        align-items: center;
+        gap: 2rem; /* Espacio entre nodos */
+        height: auto !important;
+    }
+  
+    .nodo {
+        position: relative !important; /* Anulamos el absolute */
+        transform: none !important; /* Eliminamos transformación */
+        width: clamp(160px, 40vw, 200px) !important;
+        height: clamp(160px, 40vw, 200px) !important;
+        margin: 0.5rem 0;
+    }
+  
+    #nodo-principal {
+        width: clamp(200px, 50vw, 240px) !important;
+        height: clamp(200px, 50vw, 240px) !important;
+        order: -1; /* Lo ponemos primero en la columna */
+        margin-bottom: 2rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    main {
+        padding-top: 160px; /* Reducido de 200px */
+    }
+    
+    .mapa-container {
+        max-width: 75%; /* Reducido de 85% */
+        margin: 1.5rem auto; /* Menor margen vertical */
+        padding: 1.5rem 0; /* Reducción de padding interno */
+    }
+  
+    .nodo {
+        width: 180px; /* Reducido de 200px */
+        height: 180px;
+    }
+  
+    #nodo-principal {
+        width: 240px; /* Reducido de 280px */
+        height: 240px;
+    }
+}
+
+/* --- DESKTOP (≥1440px) --- */
+@media (min-width: 1440px) {
+    main {
+        padding-top: 200px; /* Reducción adicional */
+    }
+    
+    .mapa-container {
+        max-width: 1100px; /* Reducido de 1200px */
+        margin: 1rem auto; /* Menor margen */
+        padding: 1rem 0; /* Menos padding interno */
+    }
+  
+    .nodo {
+        width: 200px; /* Tamaño intermedio */
+        height: 200px;
+    }
+  
+    #nodo-principal {
+        width: 280px; /* Recupera tamaño original */
+        height: 280px;
+    }
+}

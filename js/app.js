@@ -31,12 +31,9 @@ class MapaMental {
   }
 
   async init() {
-    await this.cargarDatos();
     this.configurarModoOscuro();
     this.configurarEventos();
-    const areaId = this.obtenerAreaDesdeURL();
-    this.cargarMapaPorArea(areaId);
-    this.mostrarBotonRegresar(areaId);
+    await this.cargarDatos();
   }
 
   obtenerAreaDesdeURL() {
@@ -45,16 +42,16 @@ class MapaMental {
   }
 
   cargarMapaPorArea(areaId) {
-    let areaData;
+    let selectedAreaData;
     if (areaId) {
-      areaData = this.datosMapa.areas.find(area => area.id === areaId);
-      if (areaData) {
+      selectedAreaData = this.datosMapa.areas.find(area => area.id === areaId);
+      if (selectedAreaData) {
         this.renderizarNodoCentral(
-          areaData.nodoPrincipalTexto || areaData.texto,
-          areaData.nodoCentralIcono,
+          selectedAreaData.nodoPrincipalTexto || selectedAreaData.texto,
+          selectedAreaData.nodoCentralIcono,
           areaId
         );
-        this.crearNodos(areaData.elementos);
+        this.crearNodos(selectedAreaData.elementos);
       } else {
         console.error(`Área no encontrada: ${areaId}`);
         this.cargarMapaPrincipal();
@@ -68,7 +65,7 @@ class MapaMental {
     const principalArea = this.datosMapa.areas.find(area => area.id === 'principal');
     if (principalArea) {
       this.renderizarNodoCentral(
-        this.datosMapa.nodoCentral.textos.join(" "),
+        this.datosMapa.nodoCentral.textos[0],
         null,
         'principal'
       );
@@ -81,27 +78,54 @@ class MapaMental {
 
   async cargarDatos() {
     try {
-      const response = await fetch('data/mapa.json');
-      
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
-      }
-      
-      this.datosMapa = await response.json();
-      
-      if (!this.datosMapa?.areas) {
-        throw new Error('Estructura de datos inválida');
-      }
-      
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'data/mapa.json', true);
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            this.datosMapa = JSON.parse(xhr.responseText);
+            if (!this.datosMapa?.areas) {
+              throw new Error('Estructura de datos inválida');
+            }
+            this.renderizarMapa(); // Llamar a la función para renderizar el mapa
+          } catch (parseError) {
+            console.error('Error parsing JSON:', parseError);
+            this.mostrarErrorCarga(`Error al analizar los datos JSON: ${parseError.message}`);
+          }
+        } else {
+          console.error('Error HTTP:', xhr.status);
+          this.mostrarErrorCarga(`Error HTTP: ${xhr.status}`);
+        }
+      };
+      xhr.onerror = () => {
+        console.error('Error de red');
+        this.mostrarErrorCarga('Error de red al cargar los datos.');
+      };
+      xhr.send();
     } catch (error) {
       console.error('Error cargando datos:', error);
+      this.mostrarErrorCarga(`Error cargando datos: ${error.message}`);
+    }
+  }
+
+  renderizarMapa() {
+    const areaId = this.obtenerAreaDesdeURL();
+    this.cargarMapaPorArea(areaId);
+    this.mostrarBotonRegresar(areaId);
+  }
+
+  mostrarErrorCarga(mensaje) {
+    if (typeof Swal !== 'undefined') {
       Swal.fire({
         title: 'Error de carga',
-        html: `No se pudieron cargar los datos.<br>Reintentando en 5 segundos...`,
+        html: `${mensaje}<br>Reintentando en 5 segundos...`,
         icon: 'error',
         timer: 5000,
         willClose: () => location.reload()
       });
+    } else {
+      alert(`${mensaje} Reintentando en 5 segundos...`);
+      setTimeout(() => location.reload(), 5000);
     }
   }
 
@@ -117,75 +141,76 @@ class MapaMental {
   }
 
   renderizarNodoCentral(textoNodoPrincipal, iconoNodoCentral, areaId) {
-    const svg = this.DOM.mainNode.querySelector('svg');
-    while (svg.childNodes.length > 2) svg.removeChild(svg.lastChild);
-
+    this.DOM.mainNode.innerHTML = '';
+    this.DOM.mainNode.style.backgroundImage = '';
+    this.DOM.mainNode.style.backgroundColor = '';
+    this.DOM.mainNode.style.backgroundSize = '';
     this.DOM.mainNode.style.backgroundRepeat = 'no-repeat';
 
+    let textoSuperior = "";
+    let textoInferior = "";
     if (areaId === 'principal') {
-      const { imagen } = this.datosMapa.nodoCentral;
-      this.DOM.mainNode.style.backgroundImage = `url(${imagen})`;
-      this.DOM.mainNode.style.backgroundColor = '';
+      const textos = this.datosMapa.nodoCentral.textos;
+      textoSuperior = textos[0];
+      textoInferior = textos[1] || "";
+      this.DOM.mainNode.style.backgroundImage = `url(${this.datosMapa.nodoCentral.imagen})`;
       this.DOM.mainNode.style.backgroundSize = 'contain';
-      
-      this.datosMapa.nodoCentral.textos.forEach((texto, i) => {
-        const textElement = this.crearElementoTexto(
-          texto,
-          `texto-${i ? 'inferior' : 'superior'}`
-        );
-        svg.appendChild(textElement);
-      });
     } else {
-      const [textoSuperior, textoInferior] = this.dividirTexto(textoNodoPrincipal);
-      
-      this.DOM.mainNode.style.backgroundImage = iconoNodoCentral 
-        ? `url(${iconoNodoCentral})`
-        : '';
-      
       const areaData = this.datosMapa.areas.find(area => area.id === areaId);
+      this.DOM.mainNode.style.backgroundImage = iconoNodoCentral ? `url(${iconoNodoCentral})` : '';
       this.DOM.mainNode.style.backgroundColor = areaData.nodoCentralColor || '#aeb6bf';
       this.DOM.mainNode.style.backgroundSize = '60%';
 
-      // Texto superior
-      const textElementSuperior = this.crearElementoTexto(
-        textoSuperior,
-        'texto-superior'
-      );
-      
-      // Texto inferior
-      const textElementInferior = this.crearElementoTexto(
-        textoInferior,
-        'texto-inferior'
-      );
-
-      svg.appendChild(textElementSuperior);
-      svg.appendChild(textElementInferior);
+      if (textoNodoPrincipal) {
+        const textos = textoNodoPrincipal.split(' ');
+        textoSuperior = textos.slice(0, Math.ceil(textos.length / 2)).join(' ');
+        textoInferior = textos.slice(Math.ceil(textos.length / 2)).join(' ');
+      }
     }
-  }
 
-  dividirTexto(texto) {
-    const palabras = texto.split(' ');
-    const mitad = Math.ceil(palabras.length / 2);
-    return [
-      palabras.slice(0, mitad).join(' '),
-      palabras.slice(mitad).join(' ') || ' ' // Asegurar al menos un espacio
-    ];
-  }
+    // Crear SVG
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 220 220");
 
-  crearElementoTexto(texto, pathId) {
-    const textElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    textElement.setAttribute("fill", "white");
-    textElement.setAttribute("font-size", "20");
-    textElement.setAttribute("font-weight", "bold");
+    // Definir paths para el texto
+    const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    const pathSuperior = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    pathSuperior.setAttribute("id", "texto-superior");
+    pathSuperior.setAttribute("d", "M20,110 A90,90 0 0,1 200,110");
+    const pathInferior = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    pathInferior.setAttribute("id", "texto-inferior");
+    pathInferior.setAttribute("d", "M200,110 A90,90 0 0,1 20,110");
+    defs.appendChild(pathSuperior);
+    defs.appendChild(pathInferior);
+    svg.appendChild(defs);
 
-    const textPath = document.createElementNS("http://www.w3.org/2000/svg", "textPath");
-    textPath.setAttribute("href", `#${pathId}`);
-    textPath.setAttribute("startOffset", "50%");
-    textPath.setAttribute("text-anchor", "middle");
-    textPath.textContent = texto;
+    // Crear elementos de texto
+    const textoSuperiorElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    textoSuperiorElement.setAttribute("fill", "white");
+    textoSuperiorElement.setAttribute("font-size", "20");
+    textoSuperiorElement.setAttribute("font-weight", "bold");
+    const textoSuperiorPath = document.createElementNS("http://www.w3.org/2000/svg", "textPath");
+    textoSuperiorPath.setAttribute("href", "#texto-superior");
+    textoSuperiorPath.setAttribute("startOffset", "50%");
+    textoSuperiorPath.setAttribute("text-anchor", "middle");
+    textoSuperiorPath.textContent = textoSuperior;
+    textoSuperiorElement.appendChild(textoSuperiorPath);
+    svg.appendChild(textoSuperiorElement);
 
-    textElement.appendChild(textPath);
-    return textElement;
+    const textoInferiorElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    textoInferiorElement.setAttribute("fill", "white");
+    textoInferiorElement.setAttribute("font-size", "20");
+    textoInferiorElement.setAttribute("font-weight", "bold");
+    const textoInferiorPath = document.createElementNS("http://www.w3.org/2000/svg", "textPath");
+    textoInferiorPath.setAttribute("href", "#texto-inferior");
+    textoInferiorPath.setAttribute("startOffset", "50%");
+    textoInferiorPath.setAttribute("text-anchor", "middle");
+    textoInferiorPath.textContent = textoInferior;
+    textoInferiorElement.appendChild(textoInferiorPath);
+    svg.appendChild(textoInferiorElement);
+
+    this.DOM.mainNode.innerHTML = '';
+    this.DOM.mainNode.appendChild(svg);
   }
 
   toggleNodos() {
@@ -210,10 +235,13 @@ class MapaMental {
     nodo.className = "nodo nodo-hijo";
     nodo.setAttribute("role", "button");
     nodo.setAttribute("aria-label", `Acceder a ${area.texto}`);
+    nodo.setAttribute("aria-hidden", "true"); // Initially hidden
     nodo.tabIndex = 0;
     nodo.innerHTML = `
       <img src="${area.icono}" 
-           alt="${area.texto}" 
+           alt="${area.texto}"
+           width="100"
+           height="100"
            loading="lazy"
            aria-hidden="true">
       <span>${area.texto}</span>
@@ -234,6 +262,7 @@ class MapaMental {
 
   posicionarNodo(nodo, index) {
     if (this.DOM.isMobile()) {
+      nodo.style.position = 'absolute'; // Mantener posición absoluta
       nodo.style.setProperty('--y', `${index * CONFIG.ESPACIADO_MOVIL}px`);
     } else {
       const angulo = (index / this.currentElements.length) * Math.PI * 2;
@@ -261,7 +290,8 @@ class MapaMental {
       ? `slideDownBounce 0.6s ease ${index * 0.2}s forwards`
       : `${CONFIG.ANIMACIONES.ENTRADA_DESKTOP} ${index * 0.1}s forwards`;
 
-    nodo.style.animation = animacion;
+    // Use CSS media queries instead of DOM.isMobile()
+    // nodo.style.animation = animacion;
   }
 
   eliminarNodos() {
@@ -269,13 +299,17 @@ class MapaMental {
       const animacion = this.DOM.isMobile()
         ? "none"
         : `${CONFIG.ANIMACIONES.SALIDA_DESKTOP} ${index * 0.01}s`;
-
+  
       nodo.style.animation = animacion;
       nodo.classList.add('exit');
-
-      nodo.addEventListener('animationend', () => nodo.remove(), { once: true });
-    });
-
+  
+      if (this.DOM.isMobile()) {
+        nodo.remove(); // Eliminar inmediatamente en móviles
+      } else {
+        nodo.addEventListener('animationend', () => nodo.remove(), { once: true });
+      }
+      });
+  
     this.nodos = [];
     this.DOM.mainNode.style.animation = CONFIG.ANIMACIONES.PULSE;
   }
@@ -290,17 +324,35 @@ class MapaMental {
     this.DOM.mainNode.style.animation = CONFIG.ANIMACIONES.PULSE;
   }
 
-  mostrarInstrucciones = () => {
+ mostrarInstrucciones = () => {
+    console.log('mostrarInstrucciones function called');
     const isDarkMode = document.body.classList.contains('dark-mode');
-    Swal.fire({
-      title: '¿Cómo funciona?',
-      html: `...`,
-      background: isDarkMode ? '#17202a' : '#F5F7FB',
-      customClass: {
-        popup: isDarkMode ? 'swal-dark' : 'swal-light',
-        title: isDarkMode ? 'swal-title-dark' : 'swal-title-light'
-      }
-    });
+    console.log('isDarkMode:', isDarkMode);
+    if (typeof Swal !== 'undefined') {
+      console.log('Swal is defined');
+      Swal.fire({
+        title: '¿Cómo funciona?',
+        html: `
+          <div style="text-align: left">
+        <p>1. Presiona el círculo central con el logo de Diseño Visual para desplegar las áreas de la empresa.</p>
+        <p>2. Cada área tiene sus procedimientos.</p>
+        <p>3. Al oprimir el círculo del área de tu interés, te enviará a otro mapa, dónde encontrarás los procedimientos del área correspondiente.</p>
+        <p>4. Siempre en la parte superior de la pantalla tendrás un botón para hacer el fondo oscuro para tu comodidad.</p>
+          </div>
+        `,
+        icon: 'info',
+        confirmButtonText: 'Entendido',
+        customClass: {
+          container: 'help-popup',
+          popup: 'help-popup-content'
+        },
+        background: isDarkMode ? '#17202a' : '#F5F7FB',
+        color: isDarkMode ? '#FFFFFF' : '#000000',
+      });
+    } else {
+      console.log('Swal is not defined');
+      alert('SweetAlert2 is not defined. Please check if the library is loaded correctly.');
+    }
   }
 
   mostrarBotonRegresar(areaId) {

@@ -1,0 +1,46 @@
+:root {
+    /* --- Variables de Color --- */
+    --color-secundario: #182349;
+    --color-fondo: #F5F7FB;
+    --color-texto: #000000;
+    --color-texto2: #FFFFFF;
+  
+    /* --- Variables de Tipografía --- */
+    --font-principal: 'Arial', sans-serif;
+  
+    /* --- Variables de Tamaño y Espaciado para Nodos --- */
+    /* Usan 'vw' para ser responsivos al ancho de la ventana, con límites min/max en píxeles */
+    --nodo-size: 7vw;
+    --nodo-min-size: 130px;
+    --nodo-max-size: 200px;
+    --nodo-spacing: 4rem;
+  
+    /* --- Otras Variables --- */
+    --footer-height: 50px;
+     --transition-speed: 0.2s;
+     --focus-outline: 2px solid var(--color-secundario);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: var(--font-principal);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1e23, #2c3e50, #1a1e23) fixed;
+    /*     background: linear-gradient(135deg, #1eff00, #0080ff, #ff0000) fixed; posible mezlca de colores*/
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.5;
+    overflow: auto;
+  }
+  
+  body:not(.dark-mode) {
+    background: linear-gradient(135deg,#839192,#839192,#839192) fixed;
+  }

@@ -1,0 +1,76 @@
+/* ================================================== */
+/* Keyframe Animations */
+/* ================================================== */
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.03);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes spinAndGlow { /* Not currently used in provided CSS */
+    0% {
+      transform: rotate(0deg) scale(1);
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+    100% {
+      transform: rotate(360deg) scale(1);
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+  }
+  
+  @keyframes bounceOut {
+    0% {
+      opacity: 0;
+      transform: scale(0.3) translate(0, 0); /* Start small at center */
+      z-index: 1;
+    }
+    20% {
+      opacity: 0.3;
+      /* Move partially towards target */
+      transform: scale(0.5) translate(calc(var(--x) * 0.3), calc(var(--y) * 0.3));
+    }
+    70% {
+      opacity: 0.8;
+       /* Overshoot target slightly */
+      transform: scale(1.1) translate(var(--x), var(--y));
+    }
+    100% {
+      opacity: 1;
+      /* Settle at target */
+      transform: scale(1) translate(var(--x), var(--y));
+    }
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  
+  @keyframes slideDownBounce { /* Not currently used */
+    0% { opacity: 0; transform: translateY(-100%); }
+    60% { opacity: 1; transform: translateY(10%); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeOutDown { /* Not currently used */
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-0px); /* Should likely be a positive value */ }
+  }

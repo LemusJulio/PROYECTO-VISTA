@@ -1,0 +1,72 @@
+/* ================================================== */
+/* Common Buttons */
+/* ================================================== */
+
+/* General Styling for Header/Instruction Buttons */
+#toggleDarkMode, /* ID selector */
+.btn-instructions, /* Class selector */
+header nav a { /* Specific links in header nav if styled as buttons */
+  background-color: var(--color-secundario);
+  color: var(--color-texto2);
+  padding: 0.5rem 1rem; /* Base padding */
+  border-radius: 0.5rem;
+  font-size: 1.2rem; /* Base font size */
+  font-weight: bold;
+  text-decoration: none;
+  /* flex: 1; /* Flex behavior defined in header.css */
+  /* max-width: 300px; /* Max width */
+  margin: 0; /* Reset margin */
+  transition: background-color var(--transition-speed, 0.2s) ease,
+              transform var(--transition-speed, 0.2s) ease,
+              box-shadow var(--transition-speed, 0.2s) ease;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Specific Button: Back Button */
+.btn-back {
+  background-color: var(--color-secundario);
+  color: var(--color-texto2);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem; /* Slightly smaller potentially */
+  font-weight: bold;
+  text-decoration: none;
+  order: -1; /* Position it first in flex container if needed */
+  width: auto; /* Fit content */
+  margin-right: 1rem; /* Spacing if needed */
+  transition: background-color var(--transition-speed, 0.2s) ease,
+              transform var(--transition-speed, 0.2s) ease,
+              box-shadow var(--transition-speed, 0.2s) ease;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  display: none; /* Initially hidden, shown by JS */
+}
+
+/* Hover States */
+#toggleDarkMode:hover,
+.btn-instructions:hover,
+header nav a:hover { /* Assuming 'a' is styled like button */
+  background-color: #000000; /* Darker shade or different color */
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.35rem 0.6rem rgba(0, 0, 0, 0.3);
+}
+
+.btn-back:hover {
+  background-color: #fc2f2f; /* Specific hover color for back */
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.35rem 0.6rem rgba(0, 0, 0, 0.3);
+}
+
+/* Focus States */
+#toggleDarkMode:focus,
+.btn-instructions:focus,
+header nav a:focus,
+.btn-back:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}

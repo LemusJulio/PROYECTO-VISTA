@@ -1,0 +1,127 @@
+/* ================================================== */
+/* Nodes (Mapa Mental) */
+/* ================================================== */
+
+/* Nodo Principal */
+#nodo-principal {
+    position: relative; /* Or absolute if needed within mapa-container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2; /* Above secondary nodes if overlapping */
+    width: 18vw; /* Responsive width */
+    max-width: 350px; /* Max size */
+    min-width: 200px; /* Minimum size for visibility */
+    height: 18vw; /* Responsive height */
+    max-height: 350px; /* Max size */
+    min-height: 200px; /* Minimum size */
+    margin: 1rem auto; /* Centering */
+    border-radius: 50%;
+    color: var(--color-texto2);
+    font-size: clamp(1.5rem, 3vw, 2.5rem); /* Responsive font size */
+    font-weight: bold;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat; /* Ensure no repeat */
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: pulse 2s infinite; /* Pulse animation */
+    /* background-image: url('../path/to/your/image.svg'); /* Set background image here or inline style */
+    overflow: visible;
+  }
+
+  #nodo-principal svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  #nodo-principal text {
+    font-family: var(--font-principal);
+  }
+
+  #nodo-principal img { /* If using an <img> tag inside */
+    width: 55%;
+    height: auto;
+    max-width: none; /* Override potential global img styles */
+  }
+
+  /* Nodos Secundarios */
+  .nodo {
+    position: absolute; /* Positioned relative to mapa-container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: var(--nodo-size);
+    min-width: var(--nodo-min-size);
+    max-width: var(--nodo-max-size);
+    height: var(--nodo-size);
+    min-height: var(--nodo-min-size);
+    max-height: var(--nodo-max-size);
+    border-radius: 50%;
+    font-size: clamp(1rem, 2.5vw, 1.5rem); /* Responsive font size */
+    color: #000000; /* Default text color for nodes */
+    opacity: 0; /* Start hidden for animation */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, transform 0.3s ease;
+    animation: bounceOut 0.3s ease-in-out forwards; /* Bounce animation */
+    transform-origin: center center; /* Ensure scaling/transforms originate from center */
+    padding: 1rem; /* Padding inside the node */
+    box-sizing: border-box; /* Include padding in size */
+    /* transform: translate(var(--x), var(--y)); /* Position will be set by JS */
+  }
+  
+  .nodo img {
+    width: 50%; /* Relative to node size */
+    height: auto;
+    max-width: none; /* Override potential global img styles */
+    object-fit: contain;
+    transition: transform 0.3s ease; /* Animate image on hover */
+  }
+  
+.nodo span {
+    font-size: clamp(1rem, 1.8vw, 1.3rem); /* Responsive text */
+    text-align: center;
+    white-space: normal; /* Allow text wrapping */
+    overflow-wrap: break-word;
+    word-break: break-word;
+    margin-top: 0.5rem;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    padding: 0 0.5rem; /* Padding for text */
+    box-sizing: border-box; /* Include padding */
+    width: 100%; /* Ensure span takes full width for centering */
+  }
+  
+  /* Node Hover/Focus States */
+  .nodo:hover {
+    transform: scale(1.1) translateY(-5px) translate(var(--x), var(--y)); /* Keep JS positioning */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    z-index: 3; /* Bring hovered node forward */
+  }
+  
+  .nodo:focus {
+    outline: var(--focus-outline);
+    outline-offset: 4px;
+    transform: scale(1.05) translate(var(--x), var(--y)); /* Keep JS positioning */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25); /* Subtle shadow on focus */
+  }
+  
+  .nodo img:hover {
+    transform: rotate(10deg); /* Rotate image inside node on hover */
+  }
+  
+  /* Colores y Retrasos de Animación para Nodos Secundarios */
+  /* These rely on the order nodes are added in HTML/JS */
+  .nodo:nth-child(3)   { animation-delay: 0.11s; background-color: #28b463; }
+  .nodo:nth-child(4)   { animation-delay: 0.16s; background-color: #d4ac0d; }
+  .nodo:nth-child(5)   { animation-delay: 0.21s; background-color: #f06292; }
+  .nodo:nth-child(6)   { animation-delay: 0.26s; background-color: #9fa8da; }
+  .nodo:nth-child(7)   { animation-delay: 0.31s; background-color: #ef9a9a; }
+  .nodo:nth-child(8)   { animation-delay: 0.36s; background-color: #f57c00; }
+  .nodo:nth-child(9)   { animation-delay: 0.41s; background-color: #aeb6bf; }
+  .nodo:nth-child(10)  { animation-delay: 0.46s; background-color: #ba68c8; }
+  .nodo:nth-child(11)  { animation-delay: 0.46s; background-color: #42a5f5; }
+  .nodo:nth-child(12)  { animation-delay: 0.51s; background-color: #a1887f; }
+  .nodo:nth-child(13)  { animation-delay: 0.56s; background-color: #4db6ac; }
+  /* Add more if needed */
