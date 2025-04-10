@@ -1,6 +1,6 @@
 {
   "nodoCentral": {
-    "imagen": "imagenes/logo.webp",
+    "imagen": "./imagenes/logo.webp",
     "textos": ["MARKETING", "ONꓤƎꓕNI"]
   },
   "areas": [
@@ -10,698 +10,149 @@
       "elementos": [
         {
           "texto": "Producción",
-          "icono": "imagenes/produc.webp",
-          "link": "index.html?area=produccion"
+          "icono": "./imagenes/produc.webp",
+          "link": "./index.html?area=produccion"
         },
         {
           "texto": "Operación y Logística",
-          "icono": "imagenes/oper.webp",
-          "link": "index.html?area=operacion_logistica"
+          "icono": "./imagenes/oper.webp",
+          "link": "./index.html?area=operacion_logistica"
         },
         {
           "texto": "Dirección General",
-          "icono": "imagenes/direc.webp",
-          "link": "index.html?area=direccion_general"
+          "icono": "./imagenes/direc.webp",
+          "link": "./index.html?area=direccion_general"
         },
         {
           "texto": "Tecnología",
-          "icono": "imagenes/tecno.webp",
-          "link": "index.html?area=tecnologia"
+          "icono": "./imagenes/tecno.webp",
+          "link": "./index.html?area=tecnologia"
         },
         {
           "texto": "Sistema de Gestión",
-          "icono": "imagenes/segu.webp",
-          "link": "index.html?area=sistema_gestion"
+          "icono": "./imagenes/segu.webp",
+          "link": "./index.html?area=sistema_gestion"
         },
         {
           "texto": "Seguridad",
-          "icono": "imagenes/segu.webp",
-          "link": "index.html?area=seguridad"
+          "icono": "./imagenes/segu.webp",
+          "link": "./index.html?area=seguridad"
         },
         {
           "texto": "Administración",
-          "icono": "imagenes/admin.webp",
-          "link": "index.html?area=administracion"
+          "icono": "./imagenes/admin.webp",
+          "link": "./index.html?area=administracion"
         },
         {
           "texto": "Comités",
-          "icono": "imagenes/comi.webp",
-          "link": "index.html?area=comites"
+          "icono": "./imagenes/comi.webp",
+          "link": "./index.html?area=comites"
         },
         {
           "texto": "TIC's",
-          "icono": "imagenes/tics.webp",
-          "link": "index.html?area=tics"
+          "icono": "./imagenes/tics.webp",
+          "link": "./index.html?area=tics"
         },
         {
           "texto": "Almacén General",
-          "icono": "imagenes/alma.webp",
-          "link": "index.html?area=almacen_general"
+          "icono": "./imagenes/alma.webp",
+          "link": "./index.html?area=almacen_general"
         },
         {
           "texto": "Compras",
-          "icono": "imagenes/comp.webp",
-          "link": "index.html?area=compras"
+          "icono": "./imagenes/comp.webp",
+          "link": "./index.html?area=compras"
         }
       ]
     },
     {
       "id": "produccion",
       "nodoPrincipalTexto": "Producción",
-      "nodoCentralIcono": "imagenes/produc.webp",
+      "nodoCentralIcono": "./imagenes/produc.webp",
       "nodoCentralColor": "#28b463",
       "elementos": [
         {
-          "texto": "Infografía Producción 1",
-          "icono": "imagenes/produc.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Procedimiento P2",
-          "icono": "imagenes/produc.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Instrucción P3",
-          "icono": "imagenes/produc.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Guía P4",
-          "icono": "imagenes/produc.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Protocolo P5",
-          "icono": "imagenes/produc.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Normativa P6",
-          "icono": "imagenes/produc.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Manual P7",
-          "icono": "imagenes/produc.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Checklist P8",
-          "icono": "imagenes/produc.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Formulario P9",
-          "icono": "imagenes/produc.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Registro P10",
-          "icono": "imagenes/produc.webp",
-          "link": "./data/infografias/infografia copy.html"
+          "texto": "Infografía de Producción",
+          "icono": "./imagenes/produc.webp",
+          "infografia": "produccion1"
         }
       ]
     },
     {
       "id": "operacion_logistica",
       "nodoPrincipalTexto": "Operación y Logística",
-      "nodoCentralIcono": "imagenes/oper.webp",
+      "nodoCentralIcono": "./imagenes/oper.webp",
       "nodoCentralColor": "#b89209",
-      "elementos": [
-        {
-          "texto": "Infografía O1",
-          "icono": "imagenes/oper.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Procedimiento O2",
-          "icono": "imagenes/oper.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Instrucción O3",
-          "icono": "imagenes/oper.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Guía O4",
-          "icono": "imagenes/oper.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Protocolo O5",
-          "icono": "imagenes/oper.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Normativa O6",
-          "icono": "imagenes/oper.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Manual O7",
-          "icono": "imagenes/oper.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Checklist O8",
-          "icono": "imagenes/oper.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Formulario O9",
-          "icono": "imagenes/oper.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Registro O10",
-          "icono": "imagenes/oper.webp",
-          "link": "./data/infografias/infografia copy.html"
-        }
-      ]
+      "elementos": []
     },
     {
       "id": "direccion_general",
       "nodoPrincipalTexto": "Dirección General",
-      "nodoCentralIcono": "imagenes/direc.webp",
+      "nodoCentralIcono": "./imagenes/direc.webp",
       "nodoCentralColor": "#f06292",
       "elementos": [
         {
-          "texto": "Infografía DG1",
-          "icono": "imagenes/direc.webp",
-          "link": "./data/infografias/infografia.html"
-        },
-        {
-          "texto": "Procedimiento DG2",
-          "icono": "imagenes/direc.webp",
-          "link": "direccion_general.html"
-        },
-        {
-          "texto": "Instrucción DG3",
-          "icono": "imagenes/direc.webp",
-          "link": "direccion_general.html"
-        },
-        {
-          "texto": "Guía DG4",
-          "icono": "imagenes/direc.webp",
-          "link": "direccion_general.html"
-        },
-        {
-          "texto": "Protocolo DG5",
-          "icono": "imagenes/direc.webp",
-          "link": "direccion_general.html"
-        },
-        {
-          "texto": "Normativa DG6",
-          "icono": "imagenes/direc.webp",
-          "link": "direccion_general.html"
-        },
-        {
-          "texto": "Manual DG7",
-          "icono": "imagenes/direc.webp",
-          "link": "direccion_general.html"
-        },
-        {
-          "texto": "Checklist DG8",
-          "icono": "imagenes/direc.webp",
-          "link": "direccion_general.html"
-        },
-        {
-          "texto": "Formulario DG9",
-          "icono": "imagenes/direc.webp",
-          "link": "direccion_general.html"
-        },
-        {
-          "texto": "Registro DG10",
-          "icono": "imagenes/direc.webp",
-          "link": "direccion_general.html"
+          "texto": "Infografía de Dirección",
+          "icono": "./imagenes/direc.webp",
+          "infografia": "direccion1"
         }
       ]
     },
     {
       "id": "tecnologia",
       "nodoPrincipalTexto": "Tecnología",
-      "nodoCentralIcono": "imagenes/tecno.webp",
+      "nodoCentralIcono": "./imagenes/tecno.webp",
       "nodoCentralColor": "#9fa8da",
-      "elementos": [
-        {
-          "texto": "Infografía T1",
-          "icono": "imagenes/tecno.webp",
-          "link": "./data/infografias/infografia.html"
-        },
-        {
-          "texto": "Procedimiento T2",
-          "icono": "imagenes/tecno.webp",
-          "link": "tecnologia.html"
-        },
-        {
-          "texto": "Instrucción T3",
-          "icono": "imagenes/tecno.webp",
-          "link": "tecnologia.html"
-        },
-        {
-          "texto": "Guía T4",
-          "icono": "imagenes/tecno.webp",
-          "link": "tecnologia.html"
-        },
-        {
-          "texto": "Protocolo T5",
-          "icono": "imagenes/tecno.webp",
-          "link": "tecnologia.html"
-        },
-        {
-          "texto": "Normativa T6",
-          "icono": "imagenes/tecno.webp",
-          "link": "tecnologia.html"
-        },
-        {
-          "texto": "Manual T7",
-          "icono": "imagenes/tecno.webp",
-          "link": "tecnologia.html"
-        },
-        {
-          "texto": "Checklist T8",
-          "icono": "imagenes/tecno.webp",
-          "link": "tecnologia.html"
-        },
-        {
-          "texto": "Formulario T9",
-          "icono": "imagenes/tecno.webp",
-          "link": "tecnologia.html"
-        },
-        {
-          "texto": "Registro T10",
-          "icono": "imagenes/tecno.webp",
-          "link": "tecnologia.html"
-        }
-      ]
+      "elementos": []
     },
     {
       "id": "sistema_gestion",
       "nodoPrincipalTexto": "Sistema de Gestión",
-      "nodoCentralIcono": "imagenes/segu.webp",
+      "nodoCentralIcono": "./imagenes/segu.webp",
       "nodoCentralColor": "#ef9a9a",
-      "elementos": [
-        {
-          "texto": "Infografía SG1",
-          "icono": "imagenes/segu.webp",
-          "link": "./data/infografias/infografia.html"
-        },
-        {
-          "texto": "Procedimiento SG2",
-          "icono": "imagenes/segu.webp",
-          "link": "gestion_calidad.html"
-        },
-        {
-          "texto": "Instrucción SG3",
-          "icono": "imagenes/segu.webp",
-          "link": "gestion_calidad.html"
-        },
-        {
-          "texto": "Guía SG4",
-          "icono": "imagenes/segu.webp",
-          "link": "gestion_calidad.html"
-        },
-        {
-          "texto": "Protocolo SG5",
-          "icono": "imagenes/segu.webp",
-          "link": "gestion_calidad.html"
-        },
-        {
-          "texto": "Normativa SG6",
-          "icono": "imagenes/segu.webp",
-          "link": "gestion_calidad.html"
-        },
-        {
-          "texto": "Manual SG7",
-          "icono": "imagenes/segu.webp",
-          "link": "gestion_calidad.html"
-        },
-        {
-          "texto": "Checklist SG8",
-          "icono": "imagenes/segu.webp",
-          "link": "gestion_calidad.html"
-        },
-        {
-          "texto": "Formulario SG9",
-          "icono": "imagenes/segu.webp",
-          "link": "gestion_calidad.html"
-        },
-        {
-          "texto": "Registro SG10",
-          "icono": "imagenes/segu.webp",
-          "link": "gestion_calidad.html"
-        }
-      ]
+      "elementos": []
     },
     {
       "id": "comites",
-      "nodoPrincipalTexto": "Comités", 
-      "nodoCentralIcono": "imagenes/comi.webp",
+      "nodoPrincipalTexto": "Comités",
+      "nodoCentralIcono": "./imagenes/comi.webp",
       "nodoCentralColor": "#ba68c8",
-      "elementos": [
-        {
-          "texto": "Infografía COM1",
-          "icono": "imagenes/comi.webp",
-          "link": "./data/infografias/infografia.html"
-        },
-        {
-          "texto": "Procedimiento COM2",
-          "icono": "imagenes/comi.webp",
-          "link": "comites.html"
-        },
-        {
-          "texto": "Instrucción COM3",
-          "icono": "imagenes/comi.webp", 
-          "link": "comites.html"
-        },
-        {
-          "texto": "Guía COM4",
-          "icono": "imagenes/comi.webp",
-          "link": "comites.html"
-        },
-        {
-          "texto": "Protocolo COM5",
-          "icono": "imagenes/comi.webp",
-          "link": "comites.html"
-        },
-        {
-          "texto": "Normativa COM6",
-          "icono": "imagenes/comi.webp",
-          "link": "comites.html"
-        },
-        {
-          "texto": "Manual COM7",
-          "icono": "imagenes/comi.webp",
-          "link": "comites.html"
-        },
-        {
-          "texto": "Checklist COM8",
-          "icono": "imagenes/comi.webp",
-          "link": "comites.html"
-        },
-        {
-          "texto": "Formulario COM9",
-          "icono": "imagenes/comi.webp",
-          "link": "comites.html"
-        },
-        {
-          "texto": "Registro COM10",
-          "icono": "imagenes/comi.webp",
-          "link": "comites.html"
-        }
-      ]
-        },
+      "elementos": []
+    },
     {
       "id": "tics",
       "nodoPrincipalTexto": "TIC's",
-      "nodoCentralIcono": "imagenes/tics.webp",
+      "nodoCentralIcono": "./imagenes/tics.webp",
       "nodoCentralColor": "#42a5f5",
-      "elementos": [
-        {
-          "texto": "Infografía TICS1",
-          "icono": "imagenes/tics.webp",
-          "link": "./data/infografias/infografia.html"
-        },
-        {
-          "texto": "Procedimiento TICS2",
-          "icono": "imagenes/tics.webp",
-          "link": "tics.html"
-        },
-        {
-          "texto": "Instrucción TICS3",
-          "icono": "imagenes/tics.webp",
-          "link": "tics.html"
-        },
-        {
-          "texto": "Guía TICS4",
-          "icono": "imagenes/tics.webp",
-          "link": "tics.html"
-        },
-        {
-          "texto": "Protocolo TICS5",
-          "icono": "imagenes/tics.webp",
-          "link": "tics.html"
-        },
-        {
-          "texto": "Normativa TICS6",
-          "icono": "imagenes/tics.webp",
-          "link": "tics.html"
-        },
-        {
-          "texto": "Manual TICS7",
-          "icono": "imagenes/tics.webp",
-          "link": "tics.html"
-        },
-        {
-          "texto": "Checklist TICS8",
-          "icono": "imagenes/tics.webp",
-          "link": "tics.html"
-        },
-        {
-          "texto": "Formulario TICS9",
-          "icono": "imagenes/tics.webp",
-          "link": "tics.html"
-        },
-        {
-          "texto": "Registro TICS10",
-          "icono": "imagenes/tics.webp",
-          "link": "tics.html"
-        }
-      ]
+      "elementos": []
     },
     {
       "id": "almacen_general",
       "nodoPrincipalTexto": "Almacén General",
-      "nodoCentralIcono": "imagenes/alma.webp",
+      "nodoCentralIcono": "./imagenes/alma.webp",
       "nodoCentralColor": "#a1887f",
-      "elementos": [
-        {
-          "texto": "Infografía AG1",
-          "icono": "imagenes/alma.webp",
-          "link": "./data/infografias/infografia.html"
-        },
-        {
-          "texto": "Procedimiento AG2",
-          "icono": "imagenes/alma.webp",
-          "link": "almacen.html"
-        },
-        {
-          "texto": "Instrucción AG3",
-          "icono": "imagenes/alma.webp",
-          "link": "almacen.html"
-        },
-        {
-          "texto": "Guía AG4",
-          "icono": "imagenes/alma.webp",
-          "link": "almacen.html"
-        },
-        {
-          "texto": "Protocolo AG5",
-          "icono": "imagenes/alma.webp",
-          "link": "almacen.html"
-        },
-        {
-          "texto": "Normativa AG6",
-          "icono": "imagenes/alma.webp",
-          "link": "almacen.html"
-        },
-        {
-          "texto": "Manual AG7",
-          "icono": "imagenes/alma.webp",
-          "link": "almacen.html"
-        },
-        {
-          "texto": "Checklist AG8",
-          "icono": "imagenes/alma.webp",
-          "link": "almacen.html"
-        },
-        {
-          "texto": "Formulario AG9",
-          "icono": "imagenes/alma.webp",
-          "link": "almacen.html"
-        },
-        {
-          "texto": "Registro AG10",
-          "icono": "imagenes/alma.webp",
-          "link": "almacen.html"
-        }
-      ]
+      "elementos": []
     },
     {
       "id": "compras",
       "nodoPrincipalTexto": "Compras",
-      "nodoCentralIcono": "imagenes/comp.webp",
+      "nodoCentralIcono": "./imagenes/comp.webp",
       "nodoCentralColor": "#4db6ac",
-      "elementos": [
-        {
-          "texto": "Infografía C1",
-          "icono": "imagenes/comp.webp",
-          "link": "./data/infografias/infografia.html"
-        },
-        {
-          "texto": "Procedimiento C2",
-          "icono": "imagenes/comp.webp",
-          "link": "compras.html"
-        },
-        {
-          "texto": "Instrucción C3",
-          "icono": "imagenes/comp.webp",
-          "link": "compras.html"
-        },
-        {
-          "texto": "Guía C4",
-          "icono": "imagenes/comp.webp",
-          "link": "compras.html"
-        },
-        {
-          "texto": "Protocolo C5",
-          "icono": "imagenes/comp.webp",
-          "link": "compras.html"
-        },
-        {
-          "texto": "Normativa C6",
-          "icono": "imagenes/comp.webp",
-          "link": "compras.html"
-        },
-        {
-          "texto": "Manual C7",
-          "icono": "imagenes/comp.webp",
-          "link": "compras.html"
-        },
-        {
-          "texto": "Checklist C8",
-          "icono": "imagenes/comp.webp",
-          "link": "compras.html"
-        },
-        {
-          "texto": "Formulario C9",
-          "icono": "imagenes/comp.webp",
-          "link": "compras.html"
-        },
-        {
-          "texto": "Registro C10",
-          "icono": "imagenes/comp.webp",
-          "link": "compras.html"
-        }
-      ]
+      "elementos": []
     },
-        {
+    {
       "id": "seguridad",
       "nodoPrincipalTexto": "Seguridad",
-      "nodoCentralIcono": "imagenes/segu.webp",
+      "nodoCentralIcono": "./imagenes/segu.webp",
       "nodoCentralColor": "#f57c00",
-      "elementos": [
-        {
-          "texto": "Infografía S1",
-          "icono": "imagenes/segu.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Procedimiento S2",
-          "icono": "imagenes/segu.webp",
-          "link": "seguridad.html"
-        },
-        {
-          "texto": "Instrucción S3",
-          "icono": "imagenes/segu.webp",
-          "link": "seguridad.html"
-        },
-        {
-          "texto": "Guía S4",
-          "icono": "imagenes/segu.webp",
-          "link": "seguridad.html"
-        },
-        {
-          "texto": "Protocolo S5",
-          "icono": "imagenes/segu.webp",
-          "link": "seguridad.html"
-        },
-        {
-          "texto": "Normativa S6",
-          "icono": "imagenes/segu.webp",
-          "link": "seguridad.html"
-        },
-        {
-          "texto": "Manual S7",
-          "icono": "imagenes/segu.webp",
-          "link": "seguridad.html"
-        },
-        {
-          "texto": "Checklist S8",
-          "icono": "imagenes/segu.webp",
-          "link": "seguridad.html"
-        },
-        {
-          "texto": "Formulario S9",
-          "icono": "imagenes/segu.webp",
-          "link": "seguridad.html"
-        },
-        {
-          "texto": "Registro S10",
-          "icono": "imagenes/segu.webp",
-          "link": "seguridad.html"
-        }
-      ]
+      "elementos": []
     },
-        {
+    {
       "id": "administracion",
       "nodoPrincipalTexto": "Administración",
-      "nodoCentralIcono": "imagenes/admin.webp",
+      "nodoCentralIcono": "./imagenes/admin.webp",
       "nodoCentralColor": "#aeb6bf",
-      "elementos": [
-        {
-          "texto": "Infografía A1",
-          "icono": "imagenes/admin.webp",
-          "link": "./data/infografias/infografia copy.html"
-        },
-        {
-          "texto": "Procedimiento A2",
-          "icono": "imagenes/admin.webp",
-          "link": "administracion.html"
-        },
-        {
-          "texto": "Instrucción A3",
-          "icono": "imagenes/admin.webp",
-          "link": "administracion.html"
-        },
-        {
-          "texto": "Guía A4",
-          "icono": "imagenes/admin.webp",
-          "link": "administracion.html"
-        },
-        {
-          "texto": "Protocolo A5",
-          "icono": "imagenes/admin.webp",
-          "link": "administracion.html"
-        },
-        {
-          "texto": "Normativa A6",
-          "icono": "imagenes/admin.webp",
-          "link": "administracion.html"
-        },
-        {
-          "texto": "Manual A7",
-          "icono": "imagenes/admin.webp",
-          "link": "administracion.html"
-        },
-        {
-          "texto": "Checklist A8",
-          "icono": "imagenes/admin.webp",
-          "link": "administracion.html"
-        },
-        {
-          "texto": "Formulario A9",
-          "icono": "imagenes/admin.webp",
-          "link": "administracion.html"
-        },
-        {
-          "texto": "Registro A10",
-          "icono": "imagenes/admin.webp",
-          "link": "administracion.html"
-        }
-      ]
+      "elementos": []
     }
   ]
 }

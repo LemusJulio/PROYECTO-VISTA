@@ -57,7 +57,7 @@ header nav a:hover { /* Assuming 'a' is styled like button */
 }
 
 .btn-back:hover {
-  background-color: #fc2f2f; /* Specific hover color for back */
+  background-color: #a73328; /* Specific hover color for back */
   transform: translateY(-0.125rem);
   box-shadow: 0 0.35rem 0.6rem rgba(0, 0, 0, 0.3);
 }

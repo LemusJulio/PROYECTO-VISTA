@@ -65,41 +65,27 @@ main {
 }
 
 /* Modificar los estilos del contenedor de imagen */
+.image-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
 .image-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Cambiar a center */
-  overflow: auto !important;
-  -webkit-overflow-scrolling: touch;
-  cursor: default;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  scroll-behavior: smooth;
-  position: relative;
-  padding: 10px; /* Reducir padding */
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-font-smoothing: antialiased;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .image-container img {
-  width: auto; /* Cambiar a auto */
-  height: auto;
-  max-width: 100%; /* Reducir de 400% a 100% */
-  max-height: 100%; /* Reducir de 400% a 100% */
-  object-fit: contain;
-  transition: transform 0.3s ease;
-  transform-origin: center;
-  pointer-events: none;
-  position: relative;
-  margin: auto;
-  transform: none !important; /* Eliminar cualquier transformación anterior */
-  left: 0 !important; /* Eliminar el desplazamiento a la izquierda */
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 /* Añadir estilos para la barra de desplazamiento */
@@ -122,34 +108,6 @@ main {
 
 .image-container::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.7);
-}
-
-/* Ajustar el wrapper de la imagen */
-.image-wrapper {
-  width: 100%;
-  height: calc(100vh - var(--footer-height)); /* Cambiar a calc(100vh - var(--footer-height)) */
-  overflow: visible;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Cambiar a center */
-  padding: 10px;
-}
-
-.image-container:active {
-  cursor: grabbing;
-}
-
-.image-container img {
-  max-width: 100%;  /* Ajusta según sea necesario */
-  max-height: 100%;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  transform-origin: center;
 }
 
 /* Modificar los estilos del footer.controls */
@@ -515,8 +473,12 @@ footer.controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: auto;
+  overflow: hidden !important;
   position: relative;
+  padding: 10px;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .image-container img {
@@ -587,6 +549,32 @@ body.dark-mode .swal2-html-container {
     color: #bdc3c7 !important;
 }
 
+/* Estilos para el botón flotante de WhatsApp */
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 100px;
+  right: 30px;
+  background-color: #25d366;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  background-color: #128C7E;
+  transform: scale(1.1);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .swal2-popup {
@@ -600,6 +588,15 @@ body.dark-mode .swal2-html-container {
     .swal2-html-container {
         font-size: 1.3rem !important;
     }
+
+    .whatsapp-float {
+      width: 50px;
+      height: 50px;
+      bottom: 80px;
+      right: 20px;
+      font-size: 25px;
+  }
+  
 }
 
 /* Mejorar el comportamiento del scroll */

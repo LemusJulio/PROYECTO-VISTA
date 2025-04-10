@@ -1,25 +1,15 @@
-// Módulo para manejar el modo oscuro
-export function toggleDarkMode() {
+function toggleDarkMode() {
     const body = document.body;
-    const button = document.getElementById('toggleDarkMode');
-    
     body.classList.toggle('dark-mode');
-    
-    if (body.classList.contains('dark-mode')) {
-        button.textContent = 'Modo Claro';
-        localStorage.setItem('darkMode', 'enabled');
-    } else {
-        button.textContent = 'Modo Oscuro';
-        localStorage.setItem('darkMode', 'disabled');
+    localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
+}
+
+function loadDarkModePreference() {
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
     }
 }
 
-export function loadDarkModePreference() {
-    const darkModePreference = localStorage.getItem('darkMode');
-    const button = document.getElementById('toggleDarkMode');
-    
-    if (darkModePreference === 'enabled') {
-        document.body.classList.add('dark-mode');
-        button.textContent = 'Modo Claro';
-    }
-}
+// Make functions globally available
+window.toggleDarkMode = toggleDarkMode;
+window.loadDarkModePreference = loadDarkModePreference;

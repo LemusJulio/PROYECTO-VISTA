@@ -1,0 +1,20 @@
+{
+    "infografias": [
+        {
+            "id": "produccion1",
+            "titulo": "Infografía de Producción - Procesos Principales",
+            "descripcion": "Diagrama de flujo de los procesos principales de producción",
+            "imagen": "imagenes/infografias/01-info-vaca.webp",
+            "alt": "Infografía Procesos de Producción",
+            "areaPadre": "produccion"
+        },
+        {
+            "id": "direccion1",
+            "titulo": "Infografía Dirección General",
+            "descripcion": "Estructura organizacional y procesos clave",
+            "imagen": "imagenes/infografias/infoe.webp",
+            "alt": "Infografía Dirección General",
+            "areaPadre": "direccion_general"
+        }
+    ]
+}

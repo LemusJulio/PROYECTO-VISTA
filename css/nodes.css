@@ -43,8 +43,10 @@
     width: 55%;
     height: auto;
     max-width: none; /* Override potential global img styles */
+    object-fit: contain;
+    transition: transform 0.3s ease; /* Animate image on hover */
   }
-
+  
   /* Nodos Secundarios */
   .nodo {
     position: absolute; /* Positioned relative to mapa-container */
@@ -67,7 +69,7 @@
     animation: bounceOut 0.3s ease-in-out forwards; /* Bounce animation */
     transform-origin: center center; /* Ensure scaling/transforms originate from center */
     padding: 1rem; /* Padding inside the node */
-    box-sizing: border-box; /* Include padding in size */
+    box-sizing: border-box; /* Include padding */
     /* transform: translate(var(--x), var(--y)); /* Position will be set by JS */
   }
   
@@ -114,14 +116,25 @@
   /* Colores y Retrasos de Animación para Nodos Secundarios */
   /* These rely on the order nodes are added in HTML/JS */
   .nodo:nth-child(3)   { animation-delay: 0.11s; background-color: #28b463; }
+  body.dark-mode .nodo:nth-child(3) { background-color: #339966; } /* Adjusted for contrast */
   .nodo:nth-child(4)   { animation-delay: 0.16s; background-color: #d4ac0d; }
+  body.dark-mode .nodo:nth-child(4) { background-color: #7d6408; } /* Adjusted for contrast */
   .nodo:nth-child(5)   { animation-delay: 0.21s; background-color: #f06292; }
+  body.dark-mode .nodo:nth-child(5) { background-color: #a84364; } /* Adjusted for contrast */
   .nodo:nth-child(6)   { animation-delay: 0.26s; background-color: #9fa8da; }
+  body.dark-mode .nodo:nth-child(6) { background-color: #6d7496; } /* Adjusted for contrast */
   .nodo:nth-child(7)   { animation-delay: 0.31s; background-color: #ef9a9a; }
+  body.dark-mode .nodo:nth-child(7) { background-color: #a56969; } /* Adjusted for contrast */
   .nodo:nth-child(8)   { animation-delay: 0.36s; background-color: #f57c00; }
+  body.dark-mode .nodo:nth-child(8) { background-color: #b35200; } /* Adjusted for contrast */
   .nodo:nth-child(9)   { animation-delay: 0.41s; background-color: #aeb6bf; }
+  body.dark-mode .nodo:nth-child(9) { background-color: #7a8186; } /* Adjusted for contrast */
   .nodo:nth-child(10)  { animation-delay: 0.46s; background-color: #ba68c8; }
+  body.dark-mode .nodo:nth-child(10) { background-color: #81478f; } /* Adjusted for contrast */
   .nodo:nth-child(11)  { animation-delay: 0.46s; background-color: #42a5f5; }
+  body.dark-mode .nodo:nth-child(11) { background-color: #2a71a8; } /* Adjusted for contrast */
   .nodo:nth-child(12)  { animation-delay: 0.51s; background-color: #a1887f; }
+  body.dark-mode .nodo:nth-child(12) { background-color: #705d57; }
   .nodo:nth-child(13)  { animation-delay: 0.56s; background-color: #4db6ac; }
+  body.dark-mode .nodo:nth-child(13) { background-color: #357e77; }
   /* Add more if needed */

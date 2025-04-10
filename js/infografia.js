@@ -1,254 +1,177 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const MOBILE_BREAKPOINT = 768;
-    const ZOOM_STEP = 0.1;
-    const MAX_SCALE = 5;
-    const MIN_SCALE = 0.5;
-
+document.addEventListener('DOMContentLoaded', async () => {
     try {
-        // 1. Configuración inicial
-        const element = document.getElementById('image-container');
-        if (!element) throw new Error('Container element not found');
+        console.log('Document loaded');
+        const urlParams = new URLSearchParams(window.location.search);
+        const infografiaId = urlParams.get('id');
+        
+        const isAndroid = window.location.protocol === 'file:';
+        const basePath = isAndroid ? 'file:///android_asset/' : '../../';
+        
+        let data;
+        try {
+            if (isAndroid) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', `${basePath}data/infografias.json`, false);
+                xhr.send(null);
+                data = JSON.parse(xhr.responseText);
+            } else {
+                const response = await fetch(`${basePath}data/infografias.json`);
+                data = await response.json();
+            }
+            console.log('Data loaded:', data);
+        } catch (e) {
+            console.error('Error loading JSON:', e);
+            throw e;
+        }
+        
+        const infografia = data.infografias.find(inf => inf.id === infografiaId);
+        console.log('Found infografia:', infografia);
+        
+        if (!infografia) {
+            throw new Error('Infografía no encontrada');
+        }
 
-let isMobile = window.innerWidth <= MOBILE_BREAKPOINT; // Usar 'let' en lugar de 'const'
-        // 2. Configuración de Panzoom
-        const startScale = isMobile ? 1.2 : 3.0; // Reducir zoom inicial solo para móviles
+        const img = document.getElementById('image');
+        
+        img.onload = () => {
+            console.log('Image loaded successfully');
+            img.style.visibility = 'visible';
+            initializeInfografia();
+        };
 
-        const panzoomConfig = {
+        img.onerror = (e) => {
+            console.error('Error loading image:', img.src);
+            handleImageError();
+        };
+
+        img.style.visibility = 'hidden';
+        img.src = `${basePath}${infografia.imagen}`;
+        img.alt = infografia.alt;
+        document.title = infografia.titulo;
+
+    } catch (error) {
+        console.error('Global error:', error);
+        handleImageError();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Document loaded');
+    const container = document.getElementById('image-container');
+    const loader = document.getElementById('loading');
+
+    if (container) {
+        const panzoom = Panzoom(container, {
             maxScale: 5,
             minScale: 0.5,
             contain: 'outside',
-            startScale: startScale,
-            step: 0.1,
-            animate: true,
-            duration: 200,
-            easing: 'ease-out',
-            transformOrigin: 'center center',
-            setPosition: 'center', // Asegurar que la imagen se centre
-            overflow: 'visible', // Añadir esta línea
-            bounds: true // Añadir esta línea
-        };
+            startScale: 1,
+            animate: true
+        });
 
-        const panzoom = Panzoom(element, panzoomConfig);
-
-        // Ajustar la posición inicial para mostrar la parte superior de la imagen
-        panzoom.pan(0, element.offsetHeight * (startScale / 2));
-
-        // 3. Accesibilidad
-        const setupAccessibility = () => {
-            const controls = document.querySelectorAll('.control-btn');
-            controls.forEach(control => {
-                control.setAttribute('role', 'button');
-                control.setAttribute('tabindex', '0');
-                control.setAttribute('aria-label', control.textContent.trim());
-                control.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        control.click();
-                    }
-                });
+        // Zoom controls
+        document.getElementById('zoomIn')?.addEventListener('click', () => panzoom.zoomIn());
+        document.getElementById('zoomOut')?.addEventListener('click', () => panzoom.zoomOut());
+        document.getElementById('resetZoom')?.addEventListener('click', () => {
+            panzoom.reset({
+                animate: true,
+                startScale: 1,
+                startX: 0,
+                startY: 0
             });
-        };
-
-        setupAccessibility();
-
-        // 4. Eventos de ratón y cursor
-        element.style.cursor = 'grab';
-        element.addEventListener('mousedown', () => {
-            element.style.cursor = 'grabbing';
-        });
-        element.addEventListener('mouseup', () => {
-            element.style.cursor = 'grab';
         });
 
-        // 5. Eventos de zoom y reset
-        document.getElementById('zoomIn').addEventListener('click', () => {
-            panzoom.zoomIn();
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '+' || e.key === '=') panzoom.zoomIn();
+            if (e.key === '-') panzoom.zoomOut();
+            if (e.key === '0' || e.key === 'r' || e.key === 'R') {
+                e.preventDefault();
+                panzoom.reset();
+            }
         });
 
-        document.getElementById('zoomOut').addEventListener('click', () => {
-            panzoom.zoomOut();
-        });
-
-        document.getElementById('resetZoom').addEventListener('click', () => {
-            panzoom.reset();
-            panzoom.pan(0, element.offsetHeight * (startScale / 2));
-        });
-
-        // 6. Eventos de teclado y rueda del ratón (solo para desktop)
-        if (!isMobile) {
-            element.addEventListener('wheel', (event) => {
-                if (event.ctrlKey) {
-                    event.preventDefault();
-                    panzoom.zoomWithWheel(event);
-                }
-            });
-
-            document.addEventListener('keydown', (event) => {
-                switch(event.key) {
-                    case '+':
-                    case '=':
-                        panzoom.zoomIn();
-                        break;
-                    case '-':
-                        panzoom.zoomOut();
-                        break;
-                    case '0':
-                        panzoom.reset();
-                        panzoom.pan(0, element.offsetHeight * (startScale / 2));
-                        break;
-                }
+        // Dark mode toggle
+        const toggleButton = document.getElementById('toggleImage');
+        if (toggleButton) {
+            toggleButton.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                toggleButton.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                localStorage.setItem('darkMode', isDark);
             });
         }
 
-        // 7. Modo oscuro
-        const moonImage = document.getElementById('toggleImage');
-        const body = document.body;
-        let isDarkMode = localStorage.getItem('darkMode') === 'true';
-
-        // Función para actualizar el icono
-        const updateThemeIcon = () => {
-            const icon = moonImage.querySelector('i');
-            icon.classList.toggle('fa-moon', !isDarkMode);
-            icon.classList.toggle('fa-sun', isDarkMode);
-        };
-
-        // Aplicar tema inicial
-        if (isDarkMode) {
-            body.classList.add('dark-mode');
+        // Back button
+        const backButton = document.querySelector('.btn-back');
+        if (backButton) {
+            backButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.history.back();
+            });
         }
-        updateThemeIcon();
 
-        moonImage.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            isDarkMode = !isDarkMode;
-            localStorage.setItem('darkMode', isDarkMode);
-            updateThemeIcon();
-        });
-
-        // 8. Manejo de redimensionamiento
-        const handleResize = debounce(() => {
-            const newIsMobile = window.innerWidth <= MOBILE_BREAKPOINT;
-            if (newIsMobile !== isMobile) {
-                location.reload();
-            }
-        }, 250);
-
-        window.addEventListener('resize', handleResize);
-
-        // 9. Gestos táctiles
-        let lastTouchDistance = 0;
-        element.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 2) {
-                lastTouchDistance = getTouchDistance(e.touches);
-            }
-        }, { passive: true });
-
-        // 10. Observador de redimensionamiento
-        const resizeObserver = new ResizeObserver(debounce(() => {
-            panzoom.reset();
-            panzoom.pan(0, element.offsetHeight * (startScale / 2));
-        }, 250));
-        resizeObserver.observe(element);
-
-        // 11. Información de ayuda
+        // Info button
         const infoButton = document.getElementById('infoButton');
         if (infoButton) {
             infoButton.addEventListener('click', () => {
+                const isDarkMode = document.body.classList.contains('dark-mode');
                 Swal.fire({
                     title: '¿Cómo funciona?',
                     html: `
                         <div style="text-align: left">
-                            <h3>Controles básicos:</h3>
-                            <p>🔍 <strong>Zoom:</strong> Usa los botones + y - para acercar y alejar la imagen</p>
-                            <p>🔄 <strong>Restablecer:</strong> El botón de reset devuelve la imagen a su tamaño original</p>
-                            <p>🖱️ <strong>Arrastrar:</strong> Haz clic y arrastra para mover la imagen</p>
-                            <p>🌙 <strong>Modo oscuro:</strong> Cambia entre modo claro y oscuro</p>
-                            <p>🏠 <strong>Inicio:</strong> Vuelve a la página principal</p>
-                            <p>↩️ <strong>Volver:</strong> Regresa a la página anterior</p>
-
-                            <h3>Gestos táctiles:</h3>
-                            <p>👆 <strong>Pellizcar:</strong> Usar dos dedos para zoom</p>
-                            <p>👆 <strong>Arrastrar:</strong> Deslizar con un dedo para mover</p>
-                            
-                            <h3>Atajos de teclado (PC):</h3>
-                            <p>➕ <strong>Zoom in:</strong> Tecla + o =</p>
-                            <p>➖ <strong>Zoom out:</strong> Tecla -</p>
-                            <p>0️⃣ <strong>Reset:</strong> Tecla 0</p>
+                            <p>🔍 <strong>Zoom:</strong> Usa los botones + y - para acercar y alejar</p>
+                            <p>🔄 <strong>Reset:</strong> Vuelve la imagen a su tamaño original</p>
+                            <p>🖱️ <strong>Arrastrar:</strong> Mueve la imagen</p>
+                            <p>🌙 <strong>Modo oscuro:</strong> Cambia el tema</p>
+                            <p>↩️ <strong>Volver:</strong> Regresa al menú anterior</p>
                         </div>
                     `,
                     icon: 'info',
                     confirmButtonText: 'Entendido',
-                    customClass: {
-                        container: 'help-popup',
-                        popup: 'help-popup-content'
-                    }
+                    background: isDarkMode ? '#17202a' : '#F5F7FB',
+                    color: isDarkMode ? '#FFFFFF' : '#000000'
                 });
             });
         }
 
-        // 12. Manejo del botón de retroceso
-        window.onBackPressed = function() {
-            try {
-                if (typeof Android !== 'undefined') {
-                    Android.goBack();
-                } else if (window.history.length > 1) {
-                    window.history.back();
-                } else {
-                    window.location.href = 'index.html';
-                }
-            } catch (error) {
-                console.error('Error handling back press:', error);
-                window.location.href = 'index.html';
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            if (toggleButton) {
+                toggleButton.querySelector('i').className = 'fas fa-sun';
             }
-            return true;
-        };
-
-        window.addEventListener('popstate', function(event) {
-            try {
-                if (typeof Android !== 'undefined') {
-                    Android.goBack();
-                } else if (window.history.length > 1) {
-                    window.history.back();
-                } else {
-                    window.location.href = 'index.html';
-            }
-            } catch (error) {
-                console.error('Error handling popstate:', error);
-                window.location.href = 'index.html';
-            }
-        });
-
-        // 13. Limpieza
-        return () => {
-            resizeObserver.disconnect();
-            panzoom.destroy();
-        };
-    } catch (error) {
-        // 14. Manejo de errores
-        console.error('Error initializing viewer:', error);
-        Swal.fire({
-            title: 'Error',
-            text: 'Hubo un problema al cargar el visor de imágenes. Por favor, recarga la página.',
-            icon: 'error'
-        });
+        }
     }
 });
 
-// 15. Funciones auxiliares
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
+// Eliminar los event listeners anteriores y reemplazar con uno solo
+document.getElementById('whatsappButton').addEventListener('click', function(e) {
+    e.preventDefault();
+    const mensaje = "Buen día Directora, espero se encuentre bien. Me gustaría solicitar su apoyo para resolver algunas dudas.";
+    const numero = "525552522687";
+    
+    try {
+        if (/Android/i.test(navigator.userAgent)) {
+            // Para Android, usar URL directa
+            window.location.href = `whatsapp://send?phone=${numero}&text=${encodeURIComponent(mensaje)}`;
+        } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            // Para iOS
+            window.location.href = `whatsapp://send?phone=${numero}&text=${encodeURIComponent(mensaje)}`;
+        } else {
+            // Para Desktop
+            window.open(`https://web.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(mensaje)}`, '_blank');
+        }
+    } catch (error) {
+        console.error('Error opening WhatsApp:', error);
+        // URL de respaldo
+        window.location.href = `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(mensaje)}`;
+    }
+});
 
-function getTouchDistance(touches) {
-    const dx = touches[0].clientX - touches[1].clientX;
-    const dy = touches[0].clientY - touches[1].clientY;
-    return Math.sqrt(dx * dx + dy * dy);
+function handleImageError() {
+    const container = document.getElementById('image-container');
+    if (container) {
+        container.innerHTML = '<p>Error al cargar la imagen. Por favor, inténtalo más tarde.</p>';
+    }
 }

@@ -3,35 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: *;">
     <meta name="description" content="Mapa mental interactivo sobre marketing y gestión empresarial.">
     <title>Mapa Mental Interactivo</title>
 
-    <!-- Estilos -->
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/buttons.css">
-    <link rel="stylesheet" href="css/nodes.css">
-    <link rel="stylesheet" href="css/themes.css">
-    <link rel="stylesheet" href="css/responsive.css">
-
-    <!-- SweetAlert2 local -->
+    <!-- SweetAlert2 desde CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script>
+        // Detectar plataforma y ajustar rutas
+        const isAndroid = window.location.protocol === 'file:';
+        const basePath = isAndroid ? 'file:///android_asset/' : './';
+        
+        // Cargar estilos dinámicamente
+        const styles = [
+            'base', 'animations', 'layout', 'header', 'footer',
+            'buttons', 'nodes', 'themes', 'responsive'
+        ];
+        
+        styles.forEach(style => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = `${basePath}css/${style}.css`;
+            document.head.appendChild(link);
+        });
+    </script>
 
     <!-- Scripts -->
-    <script defer src="js/app.js" type="module"></script>
     <script>
-        console.log("Index.html loaded");
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("DOM fully loaded");
-            console.log("Body content:", document.body.innerHTML);
-            // Añadir mensaje para verificar la carga
-            document.body.insertAdjacentHTML('afterbegin', 
-                '<div style="padding: 20px; background: yellow;">¡Página cargada!</div>');
-        });
+        document.write(`<script src="${basePath}js/darkMode.js"><\/script>`);
+        document.write(`<script src="${basePath}js/app.js"><\/script>`);
     </script>
 </head>
 <body>
@@ -72,5 +76,21 @@
     <div class="page-transition" id="pageTransition">
         <div class="page-transition-circle"></div>
     </div>
+    <script>
+        // Verificar carga de recursos
+        window.addEventListener('load', function() {
+            if (!window.Swal) {
+                console.error('SweetAlert2 no se cargó correctamente');
+                alert('Error al cargar recursos necesarios. Por favor, recarga la página.');
+            }
+        });
+
+        // Manejar errores de carga
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            console.error('Error: ' + msg + '\nurl: ' + url + '\nline: ' + lineNo);
+            alert('Ocurrió un error. Por favor, recarga la página.');
+            return false;
+        };
+    </script>
 </body>
 </html>

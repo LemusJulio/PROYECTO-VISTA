@@ -1,5 +1,3 @@
-import { toggleDarkMode, loadDarkModePreference } from './darkMode.js';
-
 // ==================================================
 // Configuración global
 // ==================================================
@@ -22,12 +20,15 @@ class MapaMental {
   constructor() {
     this.nodos = [];
     this.datosMapa = null;
+    this.cache = null; // Eliminar Map() para prevenir desbordamiento
+    this.initTime = Date.now();
 
     this.DOM = {
       container: document.querySelector(".mapa-container"),
       mainNode: document.getElementById("nodo-principal"),
       isMobile: () => window.innerWidth <= 768
     };
+    this.DOM.container.setAttribute("aria-live", "polite");
   }
 
   async init() {
@@ -39,6 +40,11 @@ class MapaMental {
   obtenerAreaDesdeURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('area');
+  }
+
+  getURLParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
   }
 
   cargarMapaPorArea(areaId) {
@@ -78,50 +84,149 @@ class MapaMental {
 
   async cargarDatos() {
     try {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', 'data/mapa.json', true);
-      xhr.onload = () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          try {
-            this.datosMapa = JSON.parse(xhr.responseText);
-            if (!this.datosMapa?.areas) {
-              throw new Error('Estructura de datos inválida');
-            }
-            this.renderizarMapa(); // Llamar a la función para renderizar el mapa
-          } catch (parseError) {
-            console.error('Error parsing JSON:', parseError);
-            this.mostrarErrorCarga(`Error al analizar los datos JSON: ${parseError.message}`);
-          }
-        } else {
-          console.error('Error HTTP:', xhr.status);
-          this.mostrarErrorCarga(`Error HTTP: ${xhr.status}`);
+      // Limpiar caché al inicio
+      if (typeof Android !== 'undefined' && Android !== null) {
+        try {
+          Android.clearAppCache();
+        } catch (e) {
+          console.warn('No se pudo limpiar caché:', e);
         }
-      };
-      xhr.onerror = () => {
-        console.error('Error de red');
-        this.mostrarErrorCarga('Error de red al cargar los datos.');
-      };
-      xhr.send();
+      }
+
+      const data = await this.fetchConReintentos();
+      
+      if (!data || !data.areas) {
+        throw new Error('Formato de datos inválido');
+      }
+
+      this.datosMapa = data;
+      this.renderizarMapa();
+      
     } catch (error) {
       console.error('Error cargando datos:', error);
-      this.mostrarErrorCarga(`Error cargando datos: ${error.message}`);
+      await this.manejarErrorCarga(error);
     }
   }
 
+  async fetchConReintentos(intentos = 3) {
+    let ultimoError;
+    
+    for (let i = 0; i < intentos; i++) {
+      try {
+        const response = await new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', 'data/mapa.json?v=' + this.initTime, true);
+          xhr.onload = function() {
+            if (xhr.status === 200) {
+              try {
+                const data = JSON.parse(xhr.responseText);
+                resolve(data);
+              } catch (e) {
+                reject(new Error('Error parsing JSON'));
+              }
+            } else {
+              reject(new Error('HTTP Error: ' + xhr.status));
+            }
+          };
+          xhr.onerror = () => reject(new Error('Network error'));
+          xhr.send();
+        });
+        
+        return response;
+      } catch (error) {
+        ultimoError = error;
+        await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+      }
+    }
+    
+    throw ultimoError;
+  }
+
+  async manejarErrorCarga(error) {
+    if (typeof Swal !== 'undefined') {
+      const result = await Swal.fire({
+        title: 'Error de carga',
+        text: 'No se pudieron cargar los datos. ¿Deseas reintentar?',
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonText: 'Reiniciar app',
+        cancelButtonText: 'Cancelar'
+      });
+
+      if (result.isConfirmed) {
+        if (typeof Android !== 'undefined' && Android !== null) {
+          Android.restartApp();
+        } else {
+          window.location.reload(true);
+        }
+      }
+    } else {
+      alert('Error de carga. La aplicación se reiniciará.');
+      window.location.reload(true);
+    }
+  }
+
+  manejarError(error) {
+    console.error('Error:', error);
+    window.location.href = '404.html';
+  }
+
   renderizarMapa() {
+    // Actualizar manejo de URLs para infografías
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('infografia-template.html') || 
+        currentPath.includes('data/infografias/')) {
+      const imageSrc = this.getURLParameter('imagen');
+      const imageAlt = this.getURLParameter('alt');
+      const imageTitle = this.getURLParameter('titulo');
+      const imageDesc = this.getURLParameter('descripcion');
+      const areaPadre = this.getURLParameter('areaPadre');
+
+      this.actualizarMetadatos(imageSrc, imageAlt, title, desc);
+      this.configurarBotonVolver(areaPadre);
+      return;
+    }
+
     const areaId = this.obtenerAreaDesdeURL();
     this.cargarMapaPorArea(areaId);
     this.mostrarBotonRegresar(areaId);
+
+    window.addEventListener('popstate', (event) => {
+      const areaId = event.state && event.state.area ? event.state.area : this.obtenerAreaDesdeURL();
+      this.cargarMapaPorArea(areaId);
+    });
+  }
+
+  actualizarMetadatos(src, alt, title, desc) {
+    const img = document.getElementById('image');
+    if (img && src) {
+      img.src = src;
+      img.alt = alt || 'Infografía';
+      document.title = title || 'Infografía';
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && desc) metaDesc.content = desc;
+    }
+  }
+
+  configurarBotonVolver(areaPadre) {
+    const btn = document.querySelector('.btn-back');
+    if (btn && areaPadre) {
+      btn.href = `../../index.html?area=${areaPadre}`;
+    }
   }
 
   mostrarErrorCarga(mensaje) {
     if (typeof Swal !== 'undefined') {
       Swal.fire({
         title: 'Error de carga',
-        html: `${mensaje}<br>Reintentando en 5 segundos...`,
+        text: `${mensaje}`,
         icon: 'error',
-        timer: 5000,
-        willClose: () => location.reload()
+        showCancelButton: true,
+        confirmButtonText: 'Reintentar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.reload();
+        }
       });
     } else {
       alert(`${mensaje} Reintentando en 5 segundos...`);
@@ -131,12 +236,14 @@ class MapaMental {
 
   configurarModoOscuro() {
     document.body.classList.add('dark-mode');
-    loadDarkModePreference();
+    // loadDarkModePreference();
   }
 
   configurarEventos() {
     this.DOM.mainNode.addEventListener("click", () => this.toggleNodos());
-    document.getElementById("toggleDarkMode").addEventListener("click", toggleDarkMode);
+    document.getElementById("toggleDarkMode").addEventListener("click", () => {
+      document.body.classList.toggle('dark-mode');
+    });
     document.getElementById('instructionsBtn').addEventListener('click', this.mostrarInstrucciones);
   }
 
@@ -197,16 +304,36 @@ class MapaMental {
     textoSuperiorElement.appendChild(textoSuperiorPath);
     svg.appendChild(textoSuperiorElement);
 
-    const textoInferiorElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    textoInferiorElement.setAttribute("fill", "white");
-    textoInferiorElement.setAttribute("font-size", "20");
-    textoInferiorElement.setAttribute("font-weight", "bold");
-    const textoInferiorPath = document.createElementNS("http://www.w3.org/2000/svg", "textPath");
-    textoInferiorPath.setAttribute("href", "#texto-inferior");
-    textoInferiorPath.setAttribute("startOffset", "50%");
-    textoInferiorPath.setAttribute("text-anchor", "middle");
-    textoInferiorPath.textContent = textoInferior;
-    textoInferiorElement.appendChild(textoInferiorPath);
+    let textoInferiorElement;
+    const areasProblematicas = ['operacion_logistica', 'direccion_general', 'sistema_gestion', 'almacen_general'];
+    if (textoInferior && areasProblematicas.includes(areaId)) {
+      const pathInferiorFixed = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      pathInferiorFixed.setAttribute("id", "texto-inferior-fixed");
+      pathInferiorFixed.setAttribute("d", "M20,155 A100,100 0 0,0 200,155");
+      defs.appendChild(pathInferiorFixed);
+
+      textoInferiorElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      textoInferiorElement.setAttribute("fill", "white");
+      textoInferiorElement.setAttribute("font-size", "20");
+      textoInferiorElement.setAttribute("font-weight", "bold");
+      const textoInferiorPath = document.createElementNS("http://www.w3.org/2000/svg", "textPath");
+      textoInferiorPath.setAttribute("href", "#texto-inferior-fixed");
+      textoInferiorPath.setAttribute("startOffset", "50%");
+      textoInferiorPath.setAttribute("text-anchor", "middle");
+      textoInferiorPath.textContent = textoInferior;
+      textoInferiorElement.appendChild(textoInferiorPath);
+    } else {
+      textoInferiorElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      textoInferiorElement.setAttribute("fill", "white");
+      textoInferiorElement.setAttribute("font-size", "20");
+      textoInferiorElement.setAttribute("font-weight", "bold");
+      const textoInferiorPath = document.createElementNS("http://www.w3.org/2000/svg", "textPath");
+      textoInferiorPath.setAttribute("href", "#texto-inferior");
+      textoInferiorPath.setAttribute("startOffset", "50%");
+      textoInferiorPath.setAttribute("text-anchor", "middle");
+      textoInferiorPath.textContent = textoInferior;
+      textoInferiorElement.appendChild(textoInferiorPath);
+    }
     svg.appendChild(textoInferiorElement);
 
     this.DOM.mainNode.innerHTML = '';
@@ -235,25 +362,35 @@ class MapaMental {
     nodo.className = "nodo nodo-hijo";
     nodo.setAttribute("role", "button");
     nodo.setAttribute("aria-label", `Acceder a ${area.texto}`);
-    nodo.setAttribute("aria-hidden", "true"); // Initially hidden
     nodo.tabIndex = 0;
     nodo.innerHTML = `
       <img src="${area.icono}" 
            alt="${area.texto}"
            width="100"
            height="100"
-           loading="lazy"
-           aria-hidden="true">
+           loading="lazy">
       <span>${area.texto}</span>
     `;
 
-    nodo.addEventListener("click", () => {
-      window.location.href = area.link;
-    });
+    if (area.infografia) {
+      const url = new URL('data/infografias/infografia.html', window.location.href);
+      url.searchParams.set('id', area.infografia);
+      nodo.addEventListener("click", () => {
+        console.log('Cargando infografía:', area.infografia);
+        window.location.href = url.href;
+      });
+    } else if (area.link) {
+      nodo.addEventListener("click", () => window.location.href = area.link);
+    } else {
+      nodo.style.opacity = "0.5";
+      nodo.style.cursor = "not-allowed";
+      nodo.setAttribute("aria-disabled", "true");
+    }
 
     nodo.addEventListener("keypress", (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        window.location.href = area.link;
+        e.preventDefault();
+        nodo.click();
       }
     });
 
@@ -324,20 +461,17 @@ class MapaMental {
     this.DOM.mainNode.style.animation = CONFIG.ANIMACIONES.PULSE;
   }
 
- mostrarInstrucciones = () => {
-    console.log('mostrarInstrucciones function called');
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    console.log('isDarkMode:', isDarkMode);
+  mostrarInstrucciones = () => {
     if (typeof Swal !== 'undefined') {
-      console.log('Swal is defined');
+      const isDarkMode = document.body.classList.contains('dark-mode');
       Swal.fire({
         title: '¿Cómo funciona?',
         html: `
           <div style="text-align: left">
-        <p>1. Presiona el círculo central con el logo de Diseño Visual para desplegar las áreas de la empresa.</p>
-        <p>2. Cada área tiene sus procedimientos.</p>
-        <p>3. Al oprimir el círculo del área de tu interés, te enviará a otro mapa, dónde encontrarás los procedimientos del área correspondiente.</p>
-        <p>4. Siempre en la parte superior de la pantalla tendrás un botón para hacer el fondo oscuro para tu comodidad.</p>
+            <p>1. Presiona el círculo central con el logo de Diseño Visual para desplegar las áreas de la empresa.</p>
+            <p>2. Cada área hasus procedimientos.</p>
+            <p>3. Al oprimir el círculo del área de tu interés, te enviará a otro mapa, dónde encontrarás los procedimientos del área correspondiente.</p>
+            <p>4. Siempre en la parte superior de la pantalla tendrás un botón para hacer el fondo oscuro para tu comodidad.</p>
           </div>
         `,
         icon: 'info',
@@ -347,11 +481,10 @@ class MapaMental {
           popup: 'help-popup-content'
         },
         background: isDarkMode ? '#17202a' : '#F5F7FB',
-        color: isDarkMode ? '#FFFFFF' : '#000000',
+        color: isDarkMode ? '#FFFFFF' : '#000000'
       });
     } else {
-      console.log('Swal is not defined');
-      alert('SweetAlert2 is not defined. Please check if the library is loaded correctly.');
+      alert('Error: No se pudieron cargar las instrucciones.');
     }
   }
 
@@ -364,4 +497,45 @@ class MapaMental {
 }
 
 // Inicializar la aplicación
-new MapaMental().init();
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const loadJSON = () => {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'data/mapa.json', true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        try {
+                            const data = JSON.parse(xhr.responseText);
+                            resolve(data);
+                        } catch (e) {
+                            reject(new Error('Error parsing JSON'));
+                        }
+                    } else {
+                        reject(new Error('Failed to load JSON'));
+                    }
+                };
+                xhr.onerror = () => reject(new Error('Network error'));
+                xhr.send();
+            });
+        };
+
+        const data = await loadJSON();
+        new MapaMental().init();
+    } catch (error) {
+        console.error('Error loading data:', error);
+        if (window.Swal) {
+            Swal.fire({
+                title: 'Error de carga',
+                text: 'No se pudieron cargar los datos. Por favor verifica tu conexión e intenta de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'Reintentar',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        }
+    }
+});
