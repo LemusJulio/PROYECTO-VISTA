@@ -24,20 +24,28 @@ header nav {
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
   }
   
-  /* Specific style for title in header */
+/* Specific style for title in header */
   header nav p.titulo { /* More specific selector */
     font-size: 1.6rem;
     font-weight: bold;
-    color: var(--color-texto);
-    text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+    color: #33ff99;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     flex-grow: 1; /* Allow title to take space if needed */
     text-align: center;
     margin: 0; /* Reset margin */
   }
   
-  /* Sizing for buttons within the header's button container */
-  .buttons-container button,
-  .buttons-container a {
+/* Sizing for buttons within the header's button container */
+/* Sizing for buttons within the header's button container */
+header nav .buttons-container button,
+header nav .buttons-container a {
+    background-color: var(--color-secundario);
+    color: var(--color-texto2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+    transition: background 0.3s ease;
     flex: 1; /* Allow flexible growth */
     min-width: 150px; /* Minimum width */
     max-width: 200px; /* Maximum width */
@@ -45,3 +53,10 @@ header nav {
     font-size: 1rem; /* Adjust font size */
     margin: 0; /* Reset margin */
   }
+
+
+.buttons-container button:hover,
+.buttons-container a:hover {
+  background-color: var(--color-acento);
+  box-shadow: 0 6px 18px rgba(39, 174, 96, 0.4);
+}

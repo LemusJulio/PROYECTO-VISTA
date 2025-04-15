@@ -13,30 +13,18 @@
     <!-- SweetAlert2 desde CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        // Detectar plataforma y ajustar rutas
-        const isAndroid = window.location.protocol === 'file:';
-        const basePath = isAndroid ? 'file:///android_asset/' : './';
-        
-        // Cargar estilos dinámicamente
-        const styles = [
-            'base', 'animations', 'layout', 'header', 'footer',
-            'buttons', 'nodes', 'themes', 'responsive'
-        ];
-        
-        styles.forEach(style => {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = `${basePath}css/${style}.css`;
-            document.head.appendChild(link);
-        });
-    </script>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/nodes.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/responsive.css">
 
     <!-- Scripts -->
-    <script>
-        document.write(`<script src="${basePath}js/darkMode.js"><\/script>`);
-        document.write(`<script src="${basePath}js/app.js"><\/script>`);
-    </script>
+    <script src="js/app.js"></script>
 </head>
 <body>
     <header>

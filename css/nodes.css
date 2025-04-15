@@ -61,7 +61,7 @@
     min-height: var(--nodo-min-size);
     max-height: var(--nodo-max-size);
     border-radius: 50%;
-    font-size: clamp(1rem, 2.5vw, 1.5rem); /* Responsive font size */
+    font-size: clamp(0.6rem, 2.1vw, 1.1rem); /* Responsive font size */
     color: #000000; /* Default text color for nodes */
     opacity: 0; /* Start hidden for animation */
     cursor: pointer;

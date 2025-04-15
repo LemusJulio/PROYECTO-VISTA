@@ -5,26 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Vista Infografias</title>
-    <script>
-        // Detectar plataforma y ajustar rutas
-        const isAndroid = window.location.protocol === 'file:';
-        const basePath = isAndroid ? 'file:///android_asset/' : '../../';
-        
-        document.write(`<link rel="stylesheet" href="${basePath}css/infografia.css">`);
-    </script>
+    <link rel="stylesheet" href="../../css/infografia.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <meta name="theme-color" content="#000000">
-    <meta name="description" content="Visor de infografías con zoom y controles">
+    <meta name="description" content="Visor de infograf赤as con zoom y controles">
     <meta name="apple-mobile-web-app-capable" content="yes">
     
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
     <link rel="preload" href="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js" as="script">
     
-    <link rel="manifest" href="manifest.json">
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
@@ -33,12 +26,13 @@
         <div class="image-wrapper">
             <div class="image-container" id="image-container">
                 <img id="image" 
-                     alt="Infografía"
+                     alt="Infograf赤a"
                      style="max-width: 100%; height: auto;">
             </div>
         </div>
     </main>
 
+    <footer class="controls">
     <footer class="controls">
         <div class="controls-group">
             <a class="control-btn btn-back" href="produccion.html">
@@ -70,7 +64,7 @@
                     <i class="fas fa-moon"></i>
                     <span>Modo Oscuro</span>
                 </button>
-                <a class="control-btn btn-home" href=".../../../../index.html">
+                <a class="control-btn btn-home" href="../../index.html">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
@@ -78,7 +72,7 @@
         </div>
     </footer>
 
-    <!-- Botón flotante de WhatsApp -->
+    <!-- Bot車n flotante de WhatsApp -->
     <a id="whatsappButton" 
        class="whatsapp-float" 
        target="_blank"
@@ -87,8 +81,6 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <script>
-        document.write(`<script src="${basePath}js/infografia.js"><\/script>`);
-    </script>
+    <script src="../../js/infografia.js"></script>
 </body>
 </html>

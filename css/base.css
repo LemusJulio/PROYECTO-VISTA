@@ -1,8 +1,8 @@
 :root {
     /* --- Variables de Color --- */
-    --color-secundario: #182349;
-    --color-fondo: #F5F7FB;
-    --color-texto: #000000;
+    --color-secundario: #34495e;
+    --color-fondo: #ecf0f1;
+    --color-texto: #34495e;
     --color-texto2: #FFFFFF;
   
     /* --- Variables de Tipografía --- */
@@ -18,14 +18,22 @@
     /* --- Otras Variables --- */
     --footer-height: 50px;
      --transition-speed: 0.2s;
-     --focus-outline: 2px solid var(--color-secundario);
-  }
+  --focus-outline: 2px solid var(--color-secundario);
+
+  --color-fondo: #0f1f17;
+  --color-secundario: #2ecc71;
+  --color-acento: #27ae60;
+  --color-contraste: #f1f8f5;
+
+  --color-texto: #ffffff;
+  --color-texto2: #c8e6d1;
+}
   
   html {
     scroll-behavior: smooth;
   }
   
-  body {
+body {
     font-family: var(--font-principal);
     margin: 0;
     padding: 0;
@@ -41,6 +49,8 @@
     overflow: auto;
   }
   
-  body:not(.dark-mode) {
-    background: linear-gradient(135deg,#839192,#839192,#839192) fixed;
-  }
+body:not(.dark-mode) {
+  background: linear-gradient(135deg, #edf5f7, #e1ecf0);
+  background-size: 250% 250%;
+  animation: gradientMove 20s ease infinite;
+}

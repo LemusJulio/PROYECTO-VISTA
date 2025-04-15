@@ -30,7 +30,7 @@
         },
         {
           "texto": "Sistema de Gestión",
-          "icono": "./imagenes/segu.webp",
+          "icono": "./imagenes/calid.webp",
           "link": "./index.html?area=sistema_gestion"
         },
         {
@@ -108,7 +108,7 @@
     {
       "id": "sistema_gestion",
       "nodoPrincipalTexto": "Sistema de Gestión",
-      "nodoCentralIcono": "./imagenes/segu.webp",
+      "nodoCentralIcono": "./imagenes/calid.webp",
       "nodoCentralColor": "#ef9a9a",
       "elementos": []
     },

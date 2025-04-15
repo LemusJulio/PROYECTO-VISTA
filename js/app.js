@@ -32,7 +32,7 @@ class MapaMental {
   }
 
   async init() {
-    this.configurarModoOscuro();
+    initializeDarkMode();
     this.configurarEventos();
     await this.cargarDatos();
   }
@@ -58,6 +58,7 @@ class MapaMental {
           areaId
         );
         this.crearNodos(selectedAreaData.elementos);
+        initializeDarkMode(); // Apply dark mode after loading area
       } else {
         console.error(`Área no encontrada: ${areaId}`);
         this.cargarMapaPrincipal();
@@ -128,28 +129,38 @@ class MapaMental {
               reject(new Error('HTTP Error: ' + xhr.status));
             }
           };
-          xhr.onerror = () => reject(new Error('Network error'));
+          xhr.onerror = () => {
+            if (!navigator.onLine) {
+              reject(new Error('No internet connection'));
+            } else {
+              reject(new Error('Network error'));
+            }
+          };
           xhr.send();
         });
-        
+
         return response;
       } catch (error) {
         ultimoError = error;
         await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
       }
     }
-    
+
     throw ultimoError;
   }
 
   async manejarErrorCarga(error) {
     if (typeof Swal !== 'undefined') {
+      let errorMessage = 'No se pudieron cargar los datos. ¿Deseas reintentar?';
+      if (error.message === 'No internet connection') {
+        errorMessage = 'No hay conexión a Internet. Por favor, verifica tu conexión y reintenta.';
+      }
       const result = await Swal.fire({
         title: 'Error de carga',
-        text: 'No se pudieron cargar los datos. ¿Deseas reintentar?',
+        text: errorMessage,
         icon: 'error',
         showCancelButton: true,
-        confirmButtonText: 'Reiniciar app',
+        confirmButtonText: 'Reintentar',
         cancelButtonText: 'Cancelar'
       });
 
@@ -157,12 +168,12 @@ class MapaMental {
         if (typeof Android !== 'undefined' && Android !== null) {
           Android.restartApp();
         } else {
-          window.location.reload(true);
+          window.location.reload();
         }
       }
     } else {
       alert('Error de carga. La aplicación se reiniciará.');
-      window.location.reload(true);
+      window.location.reload();
     }
   }
 
@@ -234,16 +245,9 @@ class MapaMental {
     }
   }
 
-  configurarModoOscuro() {
-    document.body.classList.add('dark-mode');
-    // loadDarkModePreference();
-  }
-
   configurarEventos() {
     this.DOM.mainNode.addEventListener("click", () => this.toggleNodos());
-    document.getElementById("toggleDarkMode").addEventListener("click", () => {
-      document.body.classList.toggle('dark-mode');
-    });
+    setupDarkMode();
     document.getElementById('instructionsBtn').addEventListener('click', this.mostrarInstrucciones);
   }
 
@@ -468,10 +472,10 @@ class MapaMental {
         title: '¿Cómo funciona?',
         html: `
           <div style="text-align: left">
-            <p>1. Presiona el círculo central con el logo de Diseño Visual para desplegar las áreas de la empresa.</p>
-            <p>2. Cada área hasus procedimientos.</p>
-            <p>3. Al oprimir el círculo del área de tu interés, te enviará a otro mapa, dónde encontrarás los procedimientos del área correspondiente.</p>
-            <p>4. Siempre en la parte superior de la pantalla tendrás un botón para hacer el fondo oscuro para tu comodidad.</p>
+        <p>1. Presiona el círculo central con el logo de Diseño Visual para desplegar las áreas de la empresa.</p>
+        <p>2. Cada área contiene sus procedimientos específicos.</p>
+        <p>3. Al oprimir el círculo del área de tu interés, accederás a otro mapa donde encontrarás los procedimientos correspondientes.</p>
+        <p>4. En la parte superior de la pantalla encontrarás un botón para alternar entre modo claro y oscuro según tu preferencia.</p>
           </div>
         `,
         icon: 'info',
@@ -515,7 +519,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                         reject(new Error('Failed to load JSON'));
                     }
                 };
-                xhr.onerror = () => reject(new Error('Network error'));
+                xhr.onerror = () => {
+                  if (!navigator.onLine) {
+                    reject(new Error('No internet connection'));
+                  } else {
+                    reject(new Error('Network error'));
+                  }
+                };
                 xhr.send();
             });
         };
@@ -524,10 +534,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         new MapaMental().init();
     } catch (error) {
         console.error('Error loading data:', error);
+        let errorMessage = 'No se pudieron cargar los datos. Por favor verifica tu conexión e intenta de nuevo.';
+        if (error.message === 'No internet connection') {
+          errorMessage = 'No hay conexión a Internet. Por favor, verifica tu conexión y reintenta.';
+        }
         if (window.Swal) {
             Swal.fire({
                 title: 'Error de carga',
-                text: 'No se pudieron cargar los datos. Por favor verifica tu conexión e intenta de nuevo.',
+                text: errorMessage,
                 icon: 'error',
                 confirmButtonText: 'Reintentar',
                 allowOutsideClick: false
@@ -536,6 +550,99 @@ document.addEventListener('DOMContentLoaded', async () => {
                     location.reload();
                 }
             });
+        } else {
+          alert('Error de carga. La aplicación se reiniciará.');
+          location.reload();
         }
     }
 });
+
+function initializeDarkMode() {
+    const isDark = localStorage.getItem('appDarkMode') === 'true';
+    document.body.classList.toggle('dark-mode', isDark);
+    updateDarkModeButton(isDark);
+}
+
+function setupDarkMode() {
+    const toggleButton = document.getElementById('toggleDarkMode');
+    if (!toggleButton) return;
+
+    const updateDarkMode = (isDark) => {
+        document.body.classList.toggle('dark-mode', isDark);
+        updateDarkModeButton(isDark);
+        localStorage.setItem('appDarkMode', isDark.toString());
+
+        // Broadcast the change to other windows/tabs
+        const event = new StorageEvent('storage', {
+            key: 'appDarkMode',
+            newValue: isDark.toString(),
+            url: window.location.href
+        });
+        window.dispatchEvent(event);
+    };
+
+    toggleButton.addEventListener('click', () => {
+        const isDark = !document.body.classList.contains('dark-mode');
+        updateDarkMode(isDark);
+    });
+
+    // Listen for changes from other windows/tabs
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'appDarkMode') {
+            const isDark = e.newValue === 'true';
+            document.body.classList.toggle('dark-mode', isDark);
+            updateDarkModeButton(isDark);
+        }
+    });
+
+    // Listen for the custom darkModeChange event
+    window.addEventListener('darkModeChange', (e) => {
+        const isDark = e.detail.isDark;
+        document.body.classList.toggle('dark-mode', isDark);
+        updateDarkModeButton(isDark);
+    });
+
+    // Cargar preferencia guardada al iniciar
+    let savedDarkMode = localStorage.getItem('appDarkMode');
+    let isDark = false;
+    if (savedDarkMode === null) {
+        isDark = true;
+        localStorage.setItem('appDarkMode', 'true');
+    } else {
+        isDark = savedDarkMode === 'true';
+    }
+    updateDarkMode(isDark);
+}
+
+function updateDarkModeButton(isDark) {
+    const toggleButton = document.getElementById('toggleDarkMode');
+    if (!toggleButton) return;
+
+    const icon = toggleButton.querySelector('i');
+    const text = toggleButton.querySelector('span');
+
+    if (icon) {
+        icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    if (text) {
+        // Changed the logic here - text should reflect the mode it will switch to
+        text.textContent = isDark ? 'Modo Claro' : 'Modo Oscuro';
+    } else {
+        // If no span element exists, update the button text directly
+        toggleButton.textContent = isDark ? 'Modo Claro' : 'Modo Oscuro';
+    }
+}
+
+// Agregar al inicio de la aplicación
+document.addEventListener('DOMContentLoaded', () => {
+    // Aplicar modo oscuro inmediatamente al cargar
+    initializeDarkMode();
+
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'appDarkMode') {
+            const isDark = e.newValue === 'true';
+            document.body.classList.toggle('dark-mode', isDark);
+            updateDarkModeButton(isDark);
+        }
+    });
+  });

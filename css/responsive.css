@@ -108,10 +108,10 @@
         padding: 0.75rem 1rem;
         font-size: 0.8rem;
     }
-  }
-  
-  /* --- TABLET (≥768px) --- */
-  @media (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* --- TABLET (≥768px and ≤1023px) --- */
+@media (min-width: 768px) and (max-width: 1023px) {
         /* Ajustes específicos para botones */
         .buttons-container {
           width: 100%;
@@ -153,62 +153,90 @@
     }
   
     .nodo {
-        position: relative !important; /* Anulamos el absolute */
-        transform: none !important; /* Eliminamos transformación */
+        position: relative !important;
+        transform: none !important; /* Anulamos el absolute */
         width: clamp(160px, 40vw, 200px) !important;
         height: clamp(160px, 40vw, 200px) !important;
         margin: 0.5rem 0;
     }
   
     #nodo-principal {
-        width: clamp(200px, 50vw, 240px) !important;
-        height: clamp(200px, 50vw, 240px) !important;
-        order: -1; /* Lo ponemos primero en la columna */
-        margin-bottom: 2rem;
+        width: 300px; /* Recupera tamaño original */
+        height: 300px;
+        font-size: clamp(0.8rem, 2.3vw, 1.6rem);
     }
-  }
-  
-  @media (min-width: 1024px) {
+}
+
+@media (min-width: 1024px) {
     main {
-        padding-top: 160px; /* Reducido de 200px */
+        padding-top: 18vw;
     }
     
     .mapa-container {
-        max-width: 75%; /* Reducido de 85% */
-        margin: 1.5rem auto; /* Menor margen vertical */
-        padding: 1.5rem 0; /* Reducción de padding interno */
+        max-width: 75%;
+        margin: 12vw auto;
+        padding: 1.5rem 0;
     }
   
     .nodo {
-        width: 180px; /* Reducido de 200px */
-        height: 180px;
+        width: 200px;
+        height: 200px;
     }
   
     #nodo-principal {
-        width: 240px; /* Reducido de 280px */
+        width: 240px;
         height: 240px;
     }
 }
 
 /* --- DESKTOP (≥1440px) --- */
-@media (min-width: 1440px) {
+@media (min-width: 1440px) and (max-width: 1919px) {
     main {
-        padding-top: 200px; /* Reducción adicional */
+        padding-top: 230px;
     }
     
     .mapa-container {
-        max-width: 1100px; /* Reducido de 1200px */
-        margin: 1rem auto; /* Menor margen */
-        padding: 1rem 0; /* Menos padding interno */
+        max-width: 1100px;
+        margin: 1rem auto;
+        padding: 1rem 0;
     }
   
     .nodo {
-        width: 200px; /* Tamaño intermedio */
-        height: 200px;
+        width: 260px;
+        height: 260px;
+    }
+    
+    .nodo span {
+            font-size: clamp(0.6rem, 1.0vw, 1.4rem);
     }
   
     #nodo-principal {
-        width: 280px; /* Recupera tamaño original */
+        width: 340px;
+        height: 340px;
+        font-size: clamp(1.0rem, 2.7vw, 2.0rem);
+    }
+}
+
+/* --- LARGE DESKTOP (≥1920px) --- */
+@media (min-width: 1920px) {
+    main {
+        padding-top: 250px;
+    }
+
+    .mapa-container {
+        max-width: 1300px;
+        margin: 1.2rem auto;
+        padding: 1.2rem 0;
+    }
+
+    .nodo {
+        width: 280px;
         height: 280px;
+    }
+
+    #nodo-principal {
+        width: 360px;
+        height: 360px;
+        font-size: clamp(1.1rem, 2.9vw, 2.2rem);
     }
 }
